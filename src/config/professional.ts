@@ -11,7 +11,7 @@ export interface PracticeAreaSummary {
 }
 
 export const PROFESSIONAL = {
-  fullName: 'Dulce Paloma Vidal Santos',
+  fullName: 'Dulce Paloma Vidal dos Santos Lima',
   professionalName: 'Paloma Vidal',
   brandName: 'Paloma Vidal — Advocacia & Consultoria',
   brandShort: 'Paloma Vidal',
@@ -44,9 +44,9 @@ export const PROFESSIONAL = {
     'Assistência jurídica em todo o Brasil',
   ],
   bioSummary:
-    'Dulce Paloma Vidal Santos, conhecida profissionalmente como Paloma Vidal, é advogada inscrita na OAB/BA sob o nº 61.001, pós-graduanda em Direito Previdenciário e possui mais de oito anos de experiência na área, com atuação em benefícios previdenciários e assistenciais e atendimento on-line em todo o Brasil.',
+    'Dulce Paloma Vidal dos Santos Lima, conhecida profissionalmente como Paloma Vidal, é advogada inscrita na OAB/BA sob o nº 61.001, pós-graduanda em Direito Previdenciário e possui mais de oito anos de experiência na área, com atuação em benefícios previdenciários e assistenciais e atendimento on-line em todo o Brasil.',
   bioParagraphs: [
-    'Dulce Paloma Vidal Santos, conhecida profissionalmente como Paloma Vidal, é advogada inscrita na Ordem dos Advogados do Brasil, Seccional Bahia, sob o número 61.001, pós-graduanda em Direito Previdenciário e possui mais de oito anos de experiência na área.',
+    'Dulce Paloma Vidal dos Santos Lima, conhecida profissionalmente como Paloma Vidal, é advogada inscrita na Ordem dos Advogados do Brasil, Seccional Bahia, sob o número 61.001, pós-graduanda em Direito Previdenciário e possui mais de oito anos de experiência na área.',
     'Sua atuação é voltada à orientação jurídica e à defesa dos direitos previdenciários e assistenciais dos segurados do Instituto Nacional do Seguro Social (INSS) e de seus dependentes.',
     'Possui experiência em demandas relacionadas ao Benefício de Prestação Continuada (BPC/LOAS), salário-maternidade, benefícios por incapacidade temporária e permanente, aposentadoria urbana e rural, aposentadoria do professor e pensão por morte rural e urbana.',
     'Seu trabalho é pautado pelo compromisso com a ética, pelo atendimento humanizado e pela prestação de serviços jurídicos individualizados, buscando contribuir para o acesso aos direitos previdenciários e assistenciais.',

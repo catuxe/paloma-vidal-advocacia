@@ -191,7 +191,7 @@ class EditorialDocTemplate(BaseDocTemplate):
         canvas.drawString(
             2.2 * cm,
             1.32 * cm,
-            "Acervo interno — Versões integrais originais (25/11/2026) — Dulce Paloma Vidal Santos (OAB/BA 61.001)",
+            "Acervo interno — Versões integrais originais (25/11/2026) — Dulce Paloma Vidal dos Santos Lima (OAB/BA 61.001)",
         )
         canvas.setFont("Helvetica-Bold", 8.5)
         canvas.setFillColor(BORDO)
@@ -494,7 +494,7 @@ def generate_pdf(source_dir: str, output_pdf: str):
     story.append(Spacer(1, 4.2 * cm))
     story.append(
         Paragraph(
-            "<b>Dulce Paloma Vidal Santos</b><br/>"
+            "<b>Dulce Paloma Vidal dos Santos Lima</b><br/>"
             "Advogada Previdenciarista<br/>"
             "OAB/BA 61.001<br/><br/>"
             "Atendimento on-line em todo o Brasil  •  palomavidaladvocacia.com.br",
@@ -518,7 +518,7 @@ def generate_pdf(source_dir: str, output_pdf: str):
     story.append(
         Paragraph(
             "Este volume reúne integralmente as versões completas dos artigos originalmente preparados para o blog "
-            "de <b>Paloma Vidal — Advocacia &amp; Consultoria</b> (Dulce Paloma Vidal Santos — OAB/BA 61.001), "
+            "de <b>Paloma Vidal — Advocacia &amp; Consultoria</b> (Dulce Paloma Vidal dos Santos Lima — OAB/BA 61.001), "
             "preservando títulos, subtítulos, fundamentações, exemplos hipotéticos, perguntas frequentes, tabelas, "
             "vídeos relacionados e links oficiais antes da reestruturação editorial voltada ao público geral.",
             styles["Body"],
