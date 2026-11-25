@@ -1,35 +1,27 @@
 # Pendências para Publicação Definitiva
 
-Lista exclusiva dos itens que ainda dependem de confirmação, revisão ou autorização antes da publicação oficial em produção.
+Lista atualizada após a **Segunda Etapa (25/11/2026)**, registrando exclusivamente os itens que ainda dependem de confirmação, login externo, revisão jurídica ou autorização expressa.
 
-## Domínio, hospedagem e infraestrutura
+## Migração GitHub, Netlify e Domínio
 
-- [ ] Confirmar titularidade, situação do registro e acesso administrativo ao domínio `palomavidaladvocacia.com.br`.
-- [ ] Verificar registros DNS atuais e preservar eventuais registros de e-mail (`MX`, `SPF`, `DKIM`) antes de apontar para o Netlify.
-- [ ] Criar repositório privado no GitHub e conectar o deploy de homologação no Netlify.
-- [ ] Configurar a autenticação OAuth do painel administrativo (`/admin`) com GitHub (conforme `docs/HOSPEDAGEM-DOMINIO.md`) e atualizar o campo `repo` em `public/admin/config.yml`.
-- [ ] Validar emissão do certificado SSL/HTTPS após apontamento do domínio.
+- [ ] Confirmar o **username exato no GitHub** da conta pessoal vinculada a `catuxe@gmail.com` para executar a transferência oficial do repositório `paloma-vidal-advocacia` (atualmente em `ldvsantos02-sketch`).
+- [ ] Realizar a transferência oficial de propriedade no GitHub, aceitar na conta de destino e atualizar `origin` local + `repo` em `public/admin/config.yml` (ver `docs/RELATORIO-MIGRACAO-GITHUB-NETLIFY.md`).
+- [ ] Validar a reconexão automática do Netlify após a transferência (e decidir sobre eventual transferência da titularidade do site Netlify, preservando `https://paloma-vidal-advocacia.netlify.app/`).
+- [ ] Apontar os registros DNS de `palomavidaladvocacia.com.br` no Registro.br para o Netlify após aprovação final da advogada e validar o certificado SSL/HTTPS.
+- [ ] Configurar a autenticação OAuth do painel `/admin` (ou ativar Pages CMS com `.pages.yml`, caso optado pela menor manutenção).
 
-## Identidade visual e mídia
+## Homologação e revisão jurídica (Segunda Etapa)
 
-- [ ] Aprovação final das fotografias aplicadas em cada seção do site (`paloma-hero`, `paloma-sobre`, `paloma-retrato`, `paloma-escritorio`).
-- [ ] Aprovação das adaptações técnicas da logomarca (versão horizontal recortada, fundo transparente, monograma `PV`, favicon e imagem Open Graph).
-- [ ] Identificação do assunto efetivo do quinto vídeo do Instagram (`https://www.instagram.com/reel/DbBA-9kOalh/`), atualmente mantido com status `pendente_classificacao` em `src/data/videos.ts`.
+- [ ] Aprovação da advogada na branch de homologação `revisao-editorial-video-institucional` antes do merge em `main`.
+- [ ] Confirmação jurídica da advogada sobre a **irretroatividade** da inclusão do Bolsa Família no cálculo de renda do BPC (Decreto nº 12.534/2025 / Decreto nº 6.214/2007) para benefícios anteriores.
+- [ ] Revisão e eventual liberação dos 2 artigos complementares ainda mantidos como rascunho (`depressao-direito-bpc-loas` e `cancer-direito-bpc-loas`).
+- [ ] Aprovação do **novo vídeo institucional** (e, opcionalmente, gravação da narração com a voz real de Paloma Vidal para substituir a trilha instrumental).
+- [ ] Identificação do tema do quinto vídeo do Instagram (`https://www.instagram.com/reel/DbBA-9kOalh/`), mantido como `pendente_classificacao`.
+- [ ] Aprovação final da Política de Privacidade (`/privacidade`) e Política de Cookies (`/cookies`).
 
-## Revisão jurídica e aprovação editorial
+## Google Search Console, Google Ads e Portfólio
 
-- [ ] Revisão jurídica e aprovação das **10 minutas iniciais do blog** em `src/content/blog/` (todas mantidas como `rascunho` até aprovação expressa).
-- [ ] Revisão jurídica das **8 páginas temáticas** de Direito Previdenciário em `/direito-previdenciario/...`.
-- [ ] Revisão das **12 perguntas frequentes** em `src/data/faq.ts` e das perguntas específicas de cada área.
-- [ ] Revisão e aprovação final da **Política de Privacidade** (`/privacidade`) e da **Política de Cookies** (`/cookies`).
-
-## Google Search Console, mensuração e Google Ads
-
-- [ ] Verificação de propriedade do domínio no Google Search Console (conta Google da advogada) e envio do `sitemap-index.xml`.
-- [ ] Definição e configuração opcional dos identificadores (`PUBLIC_GTM_ID`, `PUBLIC_GA4_MEASUREMENT_ID`, `PUBLIC_GOOGLE_ADS_ID`, `PUBLIC_GOOGLE_ADS_CONVERSION_LABEL`) no Netlify, caso aprovados.
-- [ ] Definição de orçamento de publicidade, revisão das sugestões de anúncios em `docs/GOOGLE-SEO-ADS.md` e autorização expressa antes de qualquer ativação manual de campanhas.
-
-## Autorizações institucionais (Mafalda Studio)
-
-- [ ] Autorização expressa da advogada para eventual inclusão do projeto no portfólio da Mafalda Studio.
+- [ ] Verificação de propriedade de `palomavidaladvocacia.com.br` no Google Search Console e envio de `sitemap-index.xml`.
+- [ ] Definição futura de orçamento e ativação manual de Google Ads (nenhuma campanha foi ativada nesta etapa).
+- [ ] Autorização expressa da advogada para publicação externa do estudo de caso em `docs/CASE-PORTFOLIO-MAFALDA-STUDIO.md` no portfólio da Mafalda Studio.
 - [x] Crédito técnico no rodapé ativado (`showDeveloperCredit: true` em `src/config/professional.ts`).

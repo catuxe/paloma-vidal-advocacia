@@ -2,11 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/blog/ArticleCard.astro';
 import InstagramEmbed from '../components/videos/InstagramEmbed.astro';
+import InstitutionalVideoPlayer from '../components/videos/InstitutionalVideoPlayer.astro';
 import FaqAccordion from '../components/ui/FaqAccordion.astro';
 import ContactSection from '../components/sections/ContactSection.astro';
 import { PRACTICE_AREAS, PRACTICE_GROUPS, PROFESSIONAL } from '../config/professional';
 import { HOME_FAQS } from '../data/faq';
-import { getPublishedVideos, getVideoById } from '../data/videos';
+import { getPublishedVideos } from '../data/videos';
 import { getPublishedPosts } from '../utils/blog';
 
 const publishedPosts = await getPublishedPosts();
@@ -14,7 +15,6 @@ const featuredPosts = publishedPosts.slice(0, 6);
 const mainPost = featuredPosts[0];
 const secondaryPosts = featuredPosts.slice(1);
 
-const presentationVideo = getVideoById('apresentacao-profissional');
 const galleryVideos = getPublishedVideos().filter((v) => v.id !== 'apresentacao-profissional');
 ---
 
@@ -205,47 +205,45 @@ const galleryVideos = getPublishedVideos().filter((v) => v.id !== 'apresentacao-
     </div>
   </section>
 
-  <!-- SEÇÃO 06 — VÍDEO DE APRESENTAÇÃO -->
-  {presentationVideo && (
-    <section aria-labelledby="video-apresentacao-heading" class="bg-marfim py-20 sm:py-24">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          <div class="lg:col-span-5 space-y-5">
-            <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Apresentação em vídeo</p>
-            <h2 id="video-apresentacao-heading" class="font-serif text-3xl sm:text-4xl lg:text-5xl text-bordo">
-              Direito Previdenciário explicado de forma acessível
-            </h2>
-            <div class="editorial-rule w-24"></div>
-            <p class="text-base sm:text-lg text-grafite-suave leading-relaxed">
-              Neste vídeo de apresentação, Paloma Vidal compartilha sua atuação dedicada ao Direito Previdenciário e à
-              orientação clara sobre direitos junto ao INSS, com atendimento on-line para segurados e dependentes em
-              todo o Brasil.
-            </p>
-            <div class="pt-2 flex flex-wrap gap-4">
-              <a
-                href={presentationVideo.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border border-bordo text-bordo hover:bg-bordo hover:text-marfim transition-colors"
-              >
-                Assistir no Instagram
-              </a>
-              <a
-                href="/videos"
-                class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-grafite-suave hover:text-bordo underline underline-offset-4"
-              >
-                Ver galeria de vídeos
-              </a>
-            </div>
-          </div>
-
-          <div class="lg:col-span-7">
-            <InstagramEmbed video={presentationVideo} />
+  <!-- SEÇÃO 06 — VÍDEO INSTITUCIONAL -->
+  <section aria-labelledby="video-apresentacao-heading" class="bg-marfim py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div class="lg:col-span-5 space-y-5">
+          <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Apresentação institucional</p>
+          <h2 id="video-apresentacao-heading" class="font-serif text-3xl sm:text-4xl lg:text-5xl text-bordo">
+            Quem sou e o que faço — Paloma Vidal
+          </h2>
+          <div class="editorial-rule w-24"></div>
+          <p class="text-base sm:text-lg text-grafite-suave leading-relaxed">
+            Conheça, em um minuto, a trajetória profissional de Paloma Vidal, as áreas de atuação em Direito
+            Previdenciário, os princípios éticos do atendimento e como funciona a assistência jurídica on-line em todo
+            o Brasil.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-4">
+            <a
+              href="/videos"
+              class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border border-bordo text-bordo hover:bg-bordo hover:text-marfim transition-colors"
+            >
+              Ver galeria de vídeos
+            </a>
+            <a
+              href={PROFESSIONAL.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-grafite-suave hover:text-bordo underline underline-offset-4"
+            >
+              Acompanhar no Instagram
+            </a>
           </div>
         </div>
+
+        <div class="lg:col-span-7">
+          <InstitutionalVideoPlayer />
+        </div>
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 
   <!-- SEÇÃO 07 — BLOG EM DESTAQUE -->
   <section aria-labelledby="blog-heading" class="bg-branco border-y border-bege py-20 sm:py-24">

@@ -1,0 +1,41 @@
+---
+interface Props {
+  title?: string;
+  caption?: string;
+}
+
+const {
+  title = 'Quem sou e o que faço — Paloma Vidal',
+  caption = 'Apresentação institucional produzida com a identidade visual oficial e fotografias reais de Paloma Vidal (OAB/BA 61.001). Legendas sincronizadas disponíveis no player.',
+} = Astro.props;
+---
+
+<figure class="bg-branco border border-bege overflow-hidden">
+  <div class="relative aspect-video bg-bordo">
+    <video
+      controls
+      preload="metadata"
+      playsinline
+      poster="/videos/paloma-vidal-video-institucional-poster.webp"
+      aria-label={title}
+      class="w-full h-full object-cover bg-bordo"
+    >
+      <source src="/videos/paloma-vidal-video-institucional-web.mp4" type="video/mp4" />
+      <track
+        kind="captions"
+        src="/videos/paloma-vidal-video-institucional-legendas.vtt"
+        srclang="pt-BR"
+        label="Português (Brasil)"
+        default
+      />
+      Seu navegador não suporta a reprodução de vídeo HTML5.
+    </video>
+  </div>
+  <figcaption class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-bege/80">
+    <div class="space-y-1">
+      <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">Vídeo institucional</p>
+      <p class="font-serif text-xl sm:text-2xl text-bordo">{title}</p>
+      <p class="text-xs sm:text-sm text-grafite-suave leading-relaxed">{caption}</p>
+    </div>
+  </figcaption>
+</figure>

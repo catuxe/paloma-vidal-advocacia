@@ -1,13 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
-import InstagramEmbed from '../components/videos/InstagramEmbed.astro';
+import InstitutionalVideoPlayer from '../components/videos/InstitutionalVideoPlayer.astro';
 import ContactSection from '../components/sections/ContactSection.astro';
 import LegalNotice from '../components/ui/LegalNotice.astro';
 import { PRACTICE_AREAS, PROFESSIONAL } from '../config/professional';
-import { getVideoById } from '../data/videos';
-
-const presentationVideo = getVideoById('apresentacao-profissional');
 
 const principles = [
   {
@@ -171,18 +168,16 @@ const principles = [
     </div>
   </section>
 
-  <!-- Vídeo de apresentação -->
-  {presentationVideo && (
-    <section class="bg-branco border-t border-bege py-16 sm:py-24">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div class="space-y-2">
-          <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Apresentação</p>
-          <h2 class="font-serif text-3xl sm:text-4xl text-bordo">Vídeo de apresentação profissional</h2>
-        </div>
-        <InstagramEmbed video={presentationVideo} />
+  <!-- Vídeo institucional -->
+  <section class="bg-branco border-t border-bege py-16 sm:py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <div class="space-y-2">
+        <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Apresentação institucional</p>
+        <h2 class="font-serif text-3xl sm:text-4xl text-bordo">Quem sou e o que faço — Paloma Vidal</h2>
       </div>
-    </section>
-  )}
+      <InstitutionalVideoPlayer />
+    </div>
+  </section>
 
   <ContactSection compact={true} />
 </BaseLayout>

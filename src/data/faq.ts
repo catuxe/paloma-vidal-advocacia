@@ -43,7 +43,13 @@ export const HOME_FAQS: FaqItem[] = [
     category: 'Benefícios do INSS',
     question: 'O que acontece quando o INSS nega um benefício?',
     answer:
-      'O indeferimento administrativo significa que, na análise inicial, o INSS entendeu que algum requisito legal ou documental não foi comprovado. É possível consultar a carta de indeferimento pelo Meu INSS para identificar o motivo exato e avaliar, de forma individualizada, se cabe apresentar recurso administrativo, novo requerimento com documentação complementar ou ação judicial.',
+      'O indeferimento administrativo significa que, na análise inicial, o INSS entendeu que algum requisito legal, cadastral ou documental não foi comprovado. Entretanto, a negativa não significa necessariamente inexistência do direito: a análise individualizada do motivo da decisão permite avaliar quais possibilidades são aplicáveis a cada caso.',
+  },
+  {
+    category: 'BPC/LOAS',
+    question: 'O Bolsa Família entra no cálculo da renda para o BPC/LOAS?',
+    answer:
+      'Com as recentes alterações na legislação (Lei nº 15.077/2024 e Decreto nº 12.534/2025), os valores recebidos pelo Bolsa Família passaram a integrar, como regra geral, o cálculo da renda familiar para concessão do BPC/LOAS. Entretanto, existem particularidades que devem ser consideradas, especialmente em relação à data de concessão do benefício e às circunstâncias de cada família.',
   },
   {
     category: 'Benefícios por incapacidade',

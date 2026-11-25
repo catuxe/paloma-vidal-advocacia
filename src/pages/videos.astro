@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
 import InstagramEmbed from '../components/videos/InstagramEmbed.astro';
+import InstitutionalVideoPlayer from '../components/videos/InstitutionalVideoPlayer.astro';
 import LegalNotice from '../components/ui/LegalNotice.astro';
 import ContactSection from '../components/sections/ContactSection.astro';
 import { getPublishedVideos } from '../data/videos';
@@ -29,11 +30,23 @@ const videos = getPublishedVideos();
   </section>
 
   <section class="bg-marfim py-16 sm:py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {videos.map((video) => (
-          <InstagramEmbed video={video} />
-        ))}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+      <div class="max-w-4xl space-y-4">
+        <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Vídeo principal</p>
+        <h2 class="font-serif text-3xl sm:text-4xl text-bordo">Apresentação institucional</h2>
+        <InstitutionalVideoPlayer />
+      </div>
+
+      <div class="space-y-6">
+        <div class="flex items-center gap-4">
+          <h2 class="font-serif text-3xl text-bordo shrink-0">Galeria de vídeos do Instagram</h2>
+          <div class="h-px bg-bege flex-1" aria-hidden="true"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {videos.map((video) => (
+            <InstagramEmbed video={video} />
+          ))}
+        </div>
       </div>
 
       <div class="bg-branco border border-bege p-7 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
