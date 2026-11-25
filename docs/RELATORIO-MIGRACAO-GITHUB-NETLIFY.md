@@ -12,13 +12,14 @@
 | --- | --- |
 | **Repositório original** | `https://github.com/ldvsantos02-sketch/paloma-vidal-advocacia.git` |
 | **Proprietário anterior** | `ldvsantos02-sketch` |
+| **Repositório de destino (atual)** | `https://github.com/catuxe/paloma-vidal-advocacia.git` |
+| **Proprietária atual (confirmada)** | `catuxe` (Catuxe Varjão — conta vinculada a `catuxe@gmail.com`) |
+| **Método de migração utilizado** | Transferência oficial de propriedade pelo GitHub (preservando histórico, autoria, branches e tags) |
 | **Branch principal (produção)** | `main` (commit `aa0e480`, preservado intacto) |
-| **Tag de restauração criada** | `v1.0-pre-revisao-editorial` |
+| **Tag de restauração preservada** | `v1.0-pre-revisao-editorial` |
 | **Branch de homologação (Segunda Etapa)** | `revisao-editorial-video-institucional` |
-| **Contas autenticadas no `gh` CLI local** | `ldvsantos02-sketch` (ativa), `ldvsantos`, `vidalcenter` |
-| **Conta de destino informada** | Conta pessoal vinculada a `catuxe@gmail.com` |
-| **Username confirmado de destino** | **Pendente de confirmação pela desenvolvedora** |
-| **Visibilidade recomendada** | Repositório **privado** (contém fotos, marca, rascunhos e documentação interna) |
+| **Configurações atualizadas** | `remote origin` local + `public/admin/config.yml` (`repo: catuxe/paloma-vidal-advocacia`) |
+| **Visibilidade recomendada** | Repositório **privado** (verificar em Settings → Danger Zone → Change repository visibility) |
 
 > **Conformidade de segurança:** nenhuma senha, token ou segredo foi armazenado em arquivos, histórico Git ou documentação. Por segurança e em cumprimento à Seção 4.2, o username da conta `catuxe@gmail.com` **não foi presumido** e nenhuma transferência destrutiva foi executada sem confirmação prévia.
 

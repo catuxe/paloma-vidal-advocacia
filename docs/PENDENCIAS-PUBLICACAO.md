@@ -4,8 +4,8 @@ Lista atualizada após a **Segunda Etapa (25/11/2026)**, registrando exclusivame
 
 ## Migração GitHub, Netlify e Domínio
 
-- [ ] Confirmar o **username exato no GitHub** da conta pessoal vinculada a `catuxe@gmail.com` para executar a transferência oficial do repositório `paloma-vidal-advocacia` (atualmente em `ldvsantos02-sketch`).
-- [ ] Realizar a transferência oficial de propriedade no GitHub, aceitar na conta de destino e atualizar `origin` local + `repo` em `public/admin/config.yml` (ver `docs/RELATORIO-MIGRACAO-GITHUB-NETLIFY.md`).
+- [x] Confirmado o username no GitHub (`catuxe`) e concluída a transferência oficial de propriedade de `ldvsantos02-sketch/paloma-vidal-advocacia` para `https://github.com/catuxe/paloma-vidal-advocacia`, com `remote origin` e `public/admin/config.yml` atualizados.
+- [ ] Alterar a visibilidade de `catuxe/paloma-vidal-advocacia` para **Privado** nas configurações do GitHub (recomendado para proteção das fotos e materiais da cliente).
 - [ ] Validar a reconexão automática do Netlify após a transferência (e decidir sobre eventual transferência da titularidade do site Netlify, preservando `https://paloma-vidal-advocacia.netlify.app/`).
 - [ ] Apontar os registros DNS de `palomavidaladvocacia.com.br` no Registro.br para o Netlify após aprovação final da advogada e validar o certificado SSL/HTTPS.
 - [ ] Configurar a autenticação OAuth do painel `/admin` (ou ativar Pages CMS com `.pages.yml`, caso optado pela menor manutenção).
