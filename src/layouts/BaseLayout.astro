@@ -1,0 +1,92 @@
+---
+import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/600.css';
+import '@fontsource/cormorant-garamond/400-italic.css';
+import '@fontsource/source-sans-3/400.css';
+import '@fontsource/source-sans-3/500.css';
+import '@fontsource/source-sans-3/600.css';
+import '@fontsource/source-sans-3/700.css';
+import '../styles/global.css';
+
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import WhatsAppFloat from '../components/ui/WhatsAppFloat.astro';
+import CookieConsent from '../components/ui/CookieConsent.astro';
+import SeoHead from '../components/seo/SeoHead.astro';
+import AnalyticsScripts from '../components/seo/AnalyticsScripts.astro';
+import { PROFESSIONAL } from '../config/professional';
+import { isSensitivePath } from '../config/analytics';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  sensitiveTopic?: boolean;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
+  publishedTime?: string;
+  modifiedTime?: string;
+}
+
+const {
+  title = `${PROFESSIONAL.professionalName} | ${PROFESSIONAL.role} | ${PROFESSIONAL.oab}`,
+  description = 'Paloma Vidal, advogada previdenciarista com mais de oito anos de experiência. Atuação em BPC/LOAS, salário-maternidade, aposentadorias, benefícios por incapacidade e pensão por morte. Atendimento on-line em todo o Brasil.',
+  canonical,
+  ogImage = '/images/og-paloma-vidal.jpg',
+  ogType = 'website',
+  noindex = false,
+  sensitiveTopic,
+  structuredData,
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+const isSensitive = sensitiveTopic ?? isSensitivePath(pathname);
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#44121E" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="64x64" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="application/rss+xml" title={`Blog — ${PROFESSIONAL.brandName}`} href="/rss.xml" />
+    <SeoHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      ogType={ogType}
+      noindex={noindex}
+      structuredData={structuredData}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+    />
+    <AnalyticsScripts isSensitive={isSensitive} />
+  </head>
+  <body class="min-h-screen flex flex-col bg-marfim text-grafite selection:bg-bordo selection:text-marfim">
+    <a
+      href="#conteudo-principal"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-bordo focus:text-marfim focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:border focus:border-dourado"
+    >
+      Ir para o conteúdo principal
+    </a>
+
+    <Header currentPath={pathname} />
+
+    <main id="conteudo-principal" class="flex-1">
+      <slot />
+    </main>
+
+    <Footer />
+    <WhatsAppFloat />
+    <CookieConsent />
+  </body>
+</html>

@@ -1,0 +1,78 @@
+backend:
+  name: github
+  repo: ldvsantos02-sketch/paloma-vidal-advocacia
+  branch: main
+  # Autenticação segura via OAuth (Netlify / Cloudflare Worker OAuth gratuito para GitHub)
+  # Consulte docs/HOSPEDAGEM-DOMINIO.md para finalizar a vinculação do provedor OAuth.
+
+locale: "pt"
+site_url: "https://palomavidaladvocacia.com.br"
+display_url: "https://palomavidaladvocacia.com.br"
+logo_url: "/images/logo/logo-horizontal.png"
+
+publish_mode: editorial_workflow
+
+media_folder: "public/images/blog"
+public_folder: "/images/blog"
+
+collections:
+  - name: "blog"
+    label: "Artigos do Blog"
+    label_singular: "Artigo"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Título principal", name: "title", widget: "string" }
+      - { label: "Subtítulo", name: "subtitle", widget: "string", required: false }
+      - { label: "URL amigável (slug)", name: "slug", widget: "string", hint: "Ex.: bpc-loas-crianca-autismo" }
+      - { label: "Resumo / Descrição", name: "description", widget: "text" }
+      - label: "Categoria"
+        name: "category"
+        widget: "select"
+        options:
+          - "BPC/LOAS"
+          - "Salário-maternidade"
+          - "Benefícios por incapacidade"
+          - "Aposentadoria urbana"
+          - "Aposentadoria rural"
+          - "Aposentadoria do professor"
+          - "Pensão por morte"
+          - "Direitos previdenciários"
+          - "Notícias e atualizações legislativas"
+      - { label: "Palavras-chave (tags)", name: "tags", widget: "list", required: false }
+      - { label: "Imagem de capa", name: "coverImage", widget: "image" }
+      - { label: "Texto alternativo da imagem (acessibilidade)", name: "coverImageAlt", widget: "string" }
+      - { label: "Data de publicação", name: "publishedAt", widget: "datetime" }
+      - { label: "Data da última atualização", name: "updatedAt", widget: "datetime", required: false }
+      - { label: "Autoria", name: "author", widget: "string", default: "Paloma Vidal — OAB/BA 61.001" }
+      - { label: "Revisão jurídica (preencher somente após revisão efetiva)", name: "reviewedBy", widget: "string", required: false, hint: "Ex.: Paloma Vidal — OAB/BA 61.001" }
+      - { label: "Data da revisão jurídica", name: "reviewedAt", widget: "datetime", required: false }
+      - label: "Status editorial"
+        name: "editorialStatus"
+        widget: "select"
+        default: "rascunho"
+        options:
+          - { label: "Rascunho (não público)", value: "rascunho" }
+          - { label: "Em revisão jurídica (não público)", value: "em_revisao_juridica" }
+          - { label: "Aprovado (aguardando publicação)", value: "aprovado" }
+          - { label: "Publicado (visível no site)", value: "publicado" }
+          - { label: "Arquivado (oculto do site)", value: "arquivado" }
+      - { label: "Manter como rascunho (marcado = oculto no site público)", name: "draft", widget: "boolean", default: true }
+      - { label: "Destacar na página inicial", name: "featured", widget: "boolean", default: false }
+      - { label: "Tema sensível (desativa tags publicitárias)", name: "sensitiveTopic", widget: "boolean", default: false }
+      - { label: "Área de atuação relacionada (slug)", name: "relatedAreaSlug", widget: "string", required: false }
+      - { label: "IDs de vídeos relacionados", name: "relatedVideos", widget: "list", required: false }
+      - { label: "Slugs de artigos relacionados", name: "relatedArticles", widget: "list", required: false }
+      - label: "Referências jurídicas oficiais"
+        name: "references"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Título da referência", name: "label", widget: "string" }
+          - { label: "Link oficial (URL)", name: "url", widget: "string" }
+      - { label: "SEO — Título personalizado", name: "seoTitle", widget: "string", required: false }
+      - { label: "SEO — Meta description", name: "seoDescription", widget: "text", required: false }
+      - { label: "URL canônica (opcional)", name: "canonicalUrl", widget: "string", required: false }
+      - { label: "Conteúdo do artigo", name: "body", widget: "markdown" }

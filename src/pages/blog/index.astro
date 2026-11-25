@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/ui/Breadcrumbs.astro';
+import ArticleCard from '../../components/blog/ArticleCard.astro';
+import LegalNotice from '../../components/ui/LegalNotice.astro';
+import { BLOG_CATEGORIES, PROFESSIONAL } from '../../config/professional';
+import { getPublishedPosts, getPostSlug, formatDatePtBr, estimateReadingTime } from '../../utils/blog';
+
+const posts = await getPublishedPosts();
+
+const serializedPosts = posts.map((post) => ({
+  slug: getPostSlug(post),
+  title: post.data.title,
+  description: post.data.description,
+  category: post.data.category,
+  tags: post.data.tags,
+  coverImage: post.data.coverImage,
+  coverImageAlt: post.data.coverImageAlt,
+  date: formatDatePtBr(post.data.publishedAt),
+  isoDate: post.data.publishedAt.toISOString(),
+  readingTime: estimateReadingTime(post.body),
+}));
+---
+
+<BaseLayout
+  title={`Blog Jurídico de Direito Previdenciário | ${PROFESSIONAL.professionalName} | ${PROFESSIONAL.oab}`}
+  description="Artigos informativos e fundamentados sobre BPC/LOAS, salário-maternidade, aposentadorias, benefícios por incapacidade, pensão por morte e atualizações do INSS."
+>
+  <section class="bg-bordo text-marfim py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={[{ label: 'Início', href: '/' }, { label: 'Blog jurídico' }]} dark={true} />
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs uppercase tracking-[0.22em] text-dourado font-medium">Biblioteca informativa</p>
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-marfim">Blog jurídico</h1>
+        <p class="text-base sm:text-lg text-marfim/85 leading-relaxed">
+          Artigos, orientações gerais e atualizações legislativas sobre Direito Previdenciário brasileiro, publicados
+          após revisão jurídica.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-marfim py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      <!-- Busca e filtros -->
+      <div class="bg-branco border border-bege p-6 space-y-5">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+          <div class="md:col-span-7">
+            <label for="blog-search" class="block text-xs uppercase tracking-widest text-dourado-escuro font-semibold mb-1.5">
+              Buscar artigos por palavra-chave
+            </label>
+            <input
+              id="blog-search"
+              type="search"
+              placeholder="Ex.: BPC, salário-maternidade, aposentadoria rural, 2027..."
+              class="w-full px-4 py-2.5 bg-marfim border border-bege text-grafite focus:border-bordo"
+            />
+          </div>
+          <div class="md:col-span-5">
+            <label for="blog-category" class="block text-xs uppercase tracking-widest text-dourado-escuro font-semibold mb-1.5">
+              Filtrar por categoria
+            </label>
+            <select
+              id="blog-category"
+              class="w-full px-4 py-2.5 bg-marfim border border-bege text-grafite focus:border-bordo"
+            >
+              <option value="all">Todas as categorias</option>
+              {BLOG_CATEGORIES.map((cat) => (
+                <option value={cat}>{cat}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {posts.length > 0 ? (
+        <>
+          <div id="blog-results-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map((post) => (
+              <div
+                data-post-card
+                data-category={post.data.category}
+                data-search={`${post.data.title} ${post.data.description} ${post.data.category} ${post.data.tags.join(' ')}`.toLowerCase()}
+              >
+                <ArticleCard post={post} />
+              </div>
+            ))}
+          </div>
+
+          <p id="blog-empty-filter" class="hidden text-center py-12 text-grafite-suave bg-branco border border-bege">
+            Nenhum artigo publicado corresponde aos critérios de busca informados.
+          </p>
+
+          <nav id="blog-pagination" aria-label="Paginação de artigos" class="flex justify-center items-center gap-3 pt-4"></nav>
+        </>
+      ) : (
+        <div class="bg-branco border border-bege p-8 sm:p-12 space-y-5">
+          <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">
+            Fluxo editorial ativo — Revisão jurídica obrigatória
+          </p>
+          <h2 class="font-serif text-3xl text-bordo">Artigos inaugurais em revisão pela advogada</h2>
+          <p class="text-base text-grafite-suave max-w-3xl leading-relaxed">
+            Por compromisso ético e rigor jurídico, nenhum artigo é publicado automaticamente sem leitura, conferência
+            e aprovação expressa de {PROFESSIONAL.fullName} ({PROFESSIONAL.oab}). As minutas iniciais já estão
+            preparadas no painel editorial como rascunhos protegidos e serão disponibilizadas aqui assim que aprovadas.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-4">
+            <a
+              href="/areas-de-atuacao"
+              class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold bg-bordo text-marfim hover:bg-bordo-escuro transition-colors"
+            >
+              Consultar áreas de atuação
+            </a>
+            <a
+              href="/videos"
+              class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border border-bordo text-bordo hover:bg-bordo hover:text-marfim transition-colors"
+            >
+              Assistir aos conteúdos em vídeo
+            </a>
+          </div>
+        </div>
+      )}
+
+      <LegalNotice />
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline define:vars={{ totalPublished: serializedPosts.length }}>
+  (function () {
+    if (!totalPublished) return;
+    const searchInput = document.getElementById('blog-search');
+    const categorySelect = document.getElementById('blog-category');
+    const cards = Array.from(document.querySelectorAll('[data-post-card]'));
+    const emptyMsg = document.getElementById('blog-empty-filter');
+    const pagination = document.getElementById('blog-pagination');
+    const PAGE_SIZE = 9;
+    let currentPage = 1;
+
+    function applyFilter() {
+      const q = (searchInput?.value || '').trim().toLowerCase();
+      const cat = categorySelect?.value || 'all';
+
+      const matched = cards.filter((card) => {
+        const cardCat = card.getAttribute('data-category') || '';
+        const cardText = card.getAttribute('data-search') || '';
+        const matchCat = cat === 'all' || cardCat === cat;
+        const matchText = !q || cardText.includes(q);
+        return matchCat && matchText;
+      });
+
+      const totalPages = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = 1;
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const end = start + PAGE_SIZE;
+
+      cards.forEach((c) => c.classList.add('hidden'));
+      matched.slice(start, end).forEach((c) => c.classList.remove('hidden'));
+
+      if (emptyMsg) emptyMsg.classList.toggle('hidden', matched.length > 0);
+
+      if (pagination) {
+        pagination.innerHTML = '';
+        if (totalPages > 1) {
+          for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = String(i);
+            btn.className =
+              i === currentPage
+                ? 'px-3.5 py-1.5 text-sm font-semibold bg-bordo text-marfim'
+                : 'px-3.5 py-1.5 text-sm border border-bege bg-branco text-bordo hover:border-bordo cursor-pointer';
+            btn.addEventListener('click', () => {
+              currentPage = i;
+              applyFilter();
+              window.scrollTo({ top: 240, behavior: 'smooth' });
+            });
+            pagination.appendChild(btn);
+          }
+        }
+      }
+    }
+
+    searchInput?.addEventListener('input', () => {
+      currentPage = 1;
+      applyFilter();
+    });
+    categorySelect?.addEventListener('change', () => {
+      currentPage = 1;
+      applyFilter();
+    });
+    applyFilter();
+  })();
+</script>

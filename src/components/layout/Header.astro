@@ -1,0 +1,148 @@
+---
+import { NAV_ITEMS, PROFESSIONAL } from '../../config/professional';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  if (href === '/areas-de-atuacao') {
+    return currentPath.startsWith('/areas-de-atuacao') || currentPath.startsWith('/direito-previdenciario');
+  }
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="sticky top-0 z-50 bg-bordo border-b border-dourado/20 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20 md:h-22 gap-4">
+      <a
+        href="/"
+        class="flex items-center shrink-0 py-1 focus-visible:outline-dourado"
+        aria-label={`${PROFESSIONAL.brandName} — Página inicial`}
+      >
+        <img
+          src="/images/logo/logo-horizontal.webp"
+          alt={`${PROFESSIONAL.brandName}`}
+          width="240"
+          height="58"
+          class="h-11 sm:h-12 md:h-13 w-auto object-contain"
+          loading="eager"
+          decoding="async"
+        />
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7" aria-label="Navegação principal">
+        {NAV_ITEMS.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <a
+              href={item.href}
+              aria-current={active ? 'page' : undefined}
+              class:list={[
+                'text-[15px] tracking-wide transition-colors py-1 border-b',
+                active
+                  ? 'text-dourado border-dourado font-medium'
+                  : 'text-marfim/90 border-transparent hover:text-dourado hover:border-dourado/50',
+              ]}
+            >
+              {item.label}
+            </a>
+          );
+        })}
+      </nav>
+
+      <div class="hidden lg:flex items-center gap-4">
+        <a
+          href="/contato"
+          data-track-event="contact_nav_click"
+          class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium tracking-wide text-dourado border border-dourado/70 hover:bg-dourado hover:text-bordo-escuro transition-colors"
+        >
+          Contato profissional
+        </a>
+      </div>
+
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        class="lg:hidden inline-flex items-center justify-center p-2.5 text-marfim border border-dourado/40 hover:border-dourado transition-colors"
+        aria-expanded="false"
+        aria-controls="mobile-menu-panel"
+        aria-label="Abrir menu de navegação"
+      >
+        <svg id="icon-menu-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path stroke-linecap="square" d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+        <svg id="icon-menu-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path stroke-linecap="square" d="M6 6l12 12M18 6l-12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu-panel"
+    class="hidden lg:hidden bg-bordo-escuro border-t border-dourado/20"
+    role="region"
+    aria-label="Menu móvel"
+  >
+    <div class="max-w-7xl mx-auto px-5 py-6 space-y-1">
+      {NAV_ITEMS.map((item) => {
+        const active = isActive(item.href);
+        return (
+          <a
+            href={item.href}
+            aria-current={active ? 'page' : undefined}
+            class:list={[
+              'block py-3 px-2 text-base border-b border-dourado/10 transition-colors',
+              active ? 'text-dourado font-semibold' : 'text-marfim/90 hover:text-dourado',
+            ]}
+          >
+            {item.label}
+          </a>
+        );
+      })}
+      <div class="pt-5 flex flex-col gap-3">
+        <a
+          href="/contato"
+          class="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium tracking-wide bg-dourado text-bordo-escuro hover:bg-marfim transition-colors"
+        >
+          Contato profissional
+        </a>
+        <p class="text-xs text-marfim/75 text-center pt-1">
+          {PROFESSIONAL.oab} • {PROFESSIONAL.coverageDetail}
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    const btn = document.getElementById('mobile-menu-toggle');
+    const panel = document.getElementById('mobile-menu-panel');
+    const iconOpen = document.getElementById('icon-menu-open');
+    const iconClose = document.getElementById('icon-menu-close');
+    if (!btn || !panel) return;
+
+    function toggleMenu(forceState) {
+      const expanded = typeof forceState === 'boolean' ? forceState : btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(expanded));
+      btn.setAttribute('aria-label', expanded ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
+      panel.classList.toggle('hidden', !expanded);
+      if (iconOpen) iconOpen.classList.toggle('hidden', expanded);
+      if (iconClose) iconClose.classList.toggle('hidden', !expanded);
+    }
+
+    btn.addEventListener('click', () => toggleMenu());
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+        toggleMenu(false);
+        btn.focus();
+      }
+    });
+  })();
+</script>

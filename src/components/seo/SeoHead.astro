@@ -1,0 +1,125 @@
+---
+import { PROFESSIONAL } from '../../config/professional';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
+  publishedTime?: string;
+  modifiedTime?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/images/og-paloma-vidal.jpg',
+  ogType = 'website',
+  noindex = false,
+  structuredData,
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
+
+const canonicalUrl = canonical || new URL(Astro.url.pathname, PROFESSIONAL.siteUrl).toString();
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, PROFESSIONAL.siteUrl).toString();
+
+const baseSchemas: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${PROFESSIONAL.siteUrl}/#website`,
+    url: PROFESSIONAL.siteUrl,
+    name: PROFESSIONAL.brandName,
+    inLanguage: 'pt-BR',
+    description:
+      'Site institucional e biblioteca informativa sobre Direito Previdenciário brasileiro, por Paloma Vidal (OAB/BA 61.001).',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${PROFESSIONAL.siteUrl}/#person`,
+    name: PROFESSIONAL.fullName,
+    alternateName: PROFESSIONAL.professionalName,
+    jobTitle: `${PROFESSIONAL.role} — ${PROFESSIONAL.oab}`,
+    description: PROFESSIONAL.bioSummary,
+    url: `${PROFESSIONAL.siteUrl}/sobre`,
+    image: `${PROFESSIONAL.siteUrl}/images/paloma/paloma-hero.webp`,
+    email: `mailto:${PROFESSIONAL.email}`,
+    telephone: '+55-75-99234-7812',
+    knowsAbout: [
+      'Direito Previdenciário',
+      'BPC/LOAS',
+      'Salário-maternidade',
+      'Auxílio por incapacidade temporária',
+      'Aposentadoria por incapacidade permanente',
+      'Aposentadoria urbana',
+      'Aposentadoria rural',
+      'Aposentadoria do professor',
+      'Pensão por morte',
+    ],
+    sameAs: [PROFESSIONAL.instagramUrl, PROFESSIONAL.threadsUrl],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'LegalService',
+    '@id': `${PROFESSIONAL.siteUrl}/#legalservice`,
+    name: PROFESSIONAL.brandName,
+    url: PROFESSIONAL.siteUrl,
+    image: `${PROFESSIONAL.siteUrl}/images/og-paloma-vidal.jpg`,
+    telephone: '+55-75-99234-7812',
+    email: PROFESSIONAL.email,
+    areaServed: {
+      '@type': 'Country',
+      name: 'Brasil',
+    },
+    founder: {
+      '@id': `${PROFESSIONAL.siteUrl}/#person`,
+    },
+    sameAs: [PROFESSIONAL.instagramUrl, PROFESSIONAL.threadsUrl],
+  },
+];
+
+const extraSchemas = structuredData
+  ? Array.isArray(structuredData)
+    ? structuredData
+    : [structuredData]
+  : [];
+
+const allSchemas = [...baseSchemas, ...extraSchemas];
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{noindex ? (
+  <meta name="robots" content="noindex, nofollow" />
+) : (
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+)}
+
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={PROFESSIONAL.brandName} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+
+{allSchemas.map((schema) => (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

@@ -1,0 +1,235 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/ui/Breadcrumbs.astro';
+import AuthorBox from '../../components/blog/AuthorBox.astro';
+import ArticleCard from '../../components/blog/ArticleCard.astro';
+import InstagramEmbed from '../../components/videos/InstagramEmbed.astro';
+import LegalNotice from '../../components/ui/LegalNotice.astro';
+import ContactSection from '../../components/sections/ContactSection.astro';
+import { getPublishedPosts, getPostSlug, estimateReadingTime, formatDatePtBr, type BlogPost } from '../../utils/blog';
+import { getVideoById } from '../../data/videos';
+import { PROFESSIONAL } from '../../config/professional';
+
+export async function getStaticPaths() {
+  const published = await getPublishedPosts();
+  return published.map((post) => ({
+    params: { slug: getPostSlug(post) },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const slug = getPostSlug(post);
+const readingTime = estimateReadingTime(post.body);
+const publishedDate = formatDatePtBr(post.data.publishedAt);
+const updatedDate = post.data.updatedAt ? formatDatePtBr(post.data.updatedAt) : null;
+const tocHeadings = headings.filter((h) => h.depth === 2);
+
+const allPublished = await getPublishedPosts();
+const relatedPosts = allPublished
+  .filter((p) => getPostSlug(p) !== slug && (p.data.category === post.data.category || post.data.relatedArticles.includes(getPostSlug(p))))
+  .slice(0, 3);
+
+const relatedVideos = post.data.relatedVideos
+  .map((id) => getVideoById(id))
+  .filter((v): v is NonNullable<typeof v> => Boolean(v));
+
+const shareUrl = new URL(`/blog/${slug}`, PROFESSIONAL.siteUrl).toString();
+const whatsappShare = `https://wa.me/?text=${encodeURIComponent(`${post.data.title} — ${shareUrl}`)}`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.seoDescription || post.data.description,
+  image: new URL(post.data.coverImage, PROFESSIONAL.siteUrl).toString(),
+  datePublished: post.data.publishedAt.toISOString(),
+  dateModified: (post.data.updatedAt || post.data.publishedAt).toISOString(),
+  inLanguage: 'pt-BR',
+  author: {
+    '@type': 'Person',
+    name: post.data.author,
+  },
+  publisher: {
+    '@id': `${PROFESSIONAL.siteUrl}/#legalservice`,
+  },
+  mainEntityOfPage: shareUrl,
+};
+---
+
+<BaseLayout
+  title={post.data.seoTitle || `${post.data.title} | ${PROFESSIONAL.brandShort}`}
+  description={post.data.seoDescription || post.data.description}
+  canonical={post.data.canonicalUrl || shareUrl}
+  ogImage={post.data.coverImage}
+  ogType="article"
+  sensitiveTopic={post.data.sensitiveTopic}
+  publishedTime={post.data.publishedAt.toISOString()}
+  modifiedTime={(post.data.updatedAt || post.data.publishedAt).toISOString()}
+  structuredData={articleSchema}
+>
+  <article>
+    <header class="bg-bordo text-marfim py-14 sm:py-20">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Breadcrumbs
+          items={[
+            { label: 'Início', href: '/' },
+            { label: 'Blog', href: '/blog' },
+            { label: post.data.category },
+          ]}
+          dark={true}
+        />
+        <p class="text-xs uppercase tracking-[0.22em] text-dourado font-medium mb-3">{post.data.category}</p>
+        <h1 class="font-serif text-3xl sm:text-5xl text-marfim leading-tight">{post.data.title}</h1>
+        {post.data.subtitle && (
+          <p class="mt-4 text-lg text-marfim/85 leading-relaxed">{post.data.subtitle}</p>
+        )}
+        <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm text-marfim/80">
+          <span>Publicado em <time datetime={post.data.publishedAt.toISOString()}>{publishedDate}</time></span>
+          {updatedDate && (
+            <>
+              <span aria-hidden="true">•</span>
+              <span>Atualizado em <time datetime={post.data.updatedAt!.toISOString()}>{updatedDate}</time></span>
+            </>
+          )}
+          <span aria-hidden="true">•</span>
+          <span>{readingTime} min de leitura</span>
+          {post.data.reviewedBy && (
+            <>
+              <span aria-hidden="true">•</span>
+              <span class="text-dourado">Revisão jurídica: {post.data.reviewedBy}</span>
+            </>
+          )}
+        </div>
+      </div>
+    </header>
+
+    <div class="bg-marfim py-12 sm:py-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <figure class="border border-bege bg-branco overflow-hidden">
+          <img
+            src={post.data.coverImage}
+            alt={post.data.coverImageAlt}
+            width="1200"
+            height="675"
+            class="w-full h-auto object-cover"
+          />
+        </figure>
+
+        <!-- Índice de leitura -->
+        {tocHeadings.length > 2 && (
+          <nav aria-label="Índice do artigo" class="bg-branco border border-bege p-6">
+            <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold mb-3">Neste artigo</p>
+            <ol class="space-y-1.5 text-sm sm:text-base list-decimal pl-5 text-bordo">
+              {tocHeadings.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`} class="hover:underline underline-offset-4">
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+
+        <!-- Corpo do artigo -->
+        <div class="editorial-prose">
+          <Content />
+        </div>
+
+        <!-- Vídeos relacionados -->
+        {relatedVideos.length > 0 && (
+          <section class="space-y-5 pt-4">
+            <h2 class="font-serif text-3xl text-bordo">Vídeo relacionado</h2>
+            <div class="grid grid-cols-1 gap-6">
+              {relatedVideos.map((video) => <InstagramEmbed video={video} />)}
+            </div>
+          </section>
+        )}
+
+        <!-- Referências oficiais -->
+        {post.data.references.length > 0 && (
+          <section class="bg-branco border border-bege p-6 sm:p-8 space-y-3">
+            <h2 class="font-serif text-2xl text-bordo">Referências legais e fontes oficiais</h2>
+            <ul class="space-y-2 text-sm sm:text-base">
+              {post.data.references.map((ref) => (
+                <li>
+                  <a
+                    href={ref.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-bordo underline underline-offset-4 hover:text-bordo-escuro"
+                  >
+                    {ref.label} ↗
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <!-- Compartilhamento -->
+        <div class="flex flex-wrap items-center justify-between gap-4 py-5 border-y border-bege text-sm">
+          <span class="font-semibold text-bordo">Compartilhar este conteúdo informativo:</span>
+          <div class="flex flex-wrap items-center gap-3">
+            <a
+              href={whatsappShare}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2 bg-bordo text-marfim hover:bg-bordo-escuro transition-colors"
+            >
+              Compartilhar no WhatsApp
+            </a>
+            <button
+              type="button"
+              id="copy-article-link"
+              data-share-url={shareUrl}
+              class="px-4 py-2 border border-bordo text-bordo hover:bg-bordo hover:text-marfim transition-colors cursor-pointer"
+            >
+              Copiar link
+            </button>
+          </div>
+        </div>
+
+        <LegalNotice />
+        <AuthorBox reviewedBy={post.data.reviewedBy} />
+
+        <!-- Artigos relacionados -->
+        {relatedPosts.length > 0 && (
+          <section class="pt-6 space-y-6">
+            <h2 class="font-serif text-3xl text-bordo">Artigos relacionados</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedPosts.map((rp) => <ArticleCard post={rp} />)}
+            </div>
+          </section>
+        )}
+      </div>
+    </div>
+  </article>
+
+  <ContactSection compact={true} />
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    const btn = document.getElementById('copy-article-link');
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      const url = btn.getAttribute('data-share-url') || window.location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        const orig = btn.textContent;
+        btn.textContent = 'Link copiado';
+        setTimeout(() => {
+          btn.textContent = orig;
+        }, 2500);
+      } catch (_) {}
+    });
+  })();
+</script>

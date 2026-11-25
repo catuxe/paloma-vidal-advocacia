@@ -1,0 +1,26 @@
+{
+  "name": "paloma-vidal-advocacia",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Site institucional e blog jurídico de Paloma Vidal — Advocacia & Consultoria (OAB/BA 61.001)",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.6",
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/source-sans-3": "^5.3.1",
+    "@tailwindcss/vite": "^4.3.5",
+    "astro": "^7.3.8",
+    "lucide-astro": "^0.556.0",
+    "tailwindcss": "^4.3.5"
+  }
+}

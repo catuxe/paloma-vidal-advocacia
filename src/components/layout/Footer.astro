@@ -1,0 +1,154 @@
+---
+import { NAV_ITEMS, PRACTICE_AREAS, PROFESSIONAL } from '../../config/professional';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-bordo text-marfim border-t border-dourado/25">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-dourado/20">
+      <!-- Identificação institucional -->
+      <div class="lg:col-span-4 space-y-5">
+        <a href="/" aria-label={PROFESSIONAL.brandName} class="inline-block">
+          <img
+            src="/images/logo/logo-horizontal.webp"
+            alt={PROFESSIONAL.brandName}
+            width="240"
+            height="58"
+            class="h-12 w-auto object-contain"
+            loading="lazy"
+          />
+        </a>
+        <div class="space-y-1.5 text-sm text-marfim/85 leading-relaxed">
+          <p class="font-medium text-marfim">{PROFESSIONAL.fullName}</p>
+          <p>{PROFESSIONAL.role} • <span class="text-dourado font-medium">{PROFESSIONAL.oab}</span></p>
+          <p>{PROFESSIONAL.education}</p>
+          <p>{PROFESSIONAL.coverageDetail}</p>
+          <p>{PROFESSIONAL.serviceDays}, {PROFESSIONAL.serviceHours.toLowerCase()}.</p>
+        </div>
+      </div>
+
+      <!-- Navegação -->
+      <div class="lg:col-span-2">
+        <h2 class="font-serif text-lg text-dourado tracking-wide mb-4">Navegação</h2>
+        <ul class="space-y-2.5 text-sm">
+          {NAV_ITEMS.map((item) => (
+            <li>
+              <a href={item.href} class="text-marfim/85 hover:text-dourado transition-colors">
+                {item.label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href="/perguntas-frequentes" class="text-marfim/85 hover:text-dourado transition-colors">
+              Perguntas frequentes
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Áreas de atuação -->
+      <div class="lg:col-span-3">
+        <h2 class="font-serif text-lg text-dourado tracking-wide mb-4">Áreas de atuação</h2>
+        <ul class="space-y-2 text-sm">
+          {PRACTICE_AREAS.map((area) => (
+            <li>
+              <a href={area.href} class="text-marfim/85 hover:text-dourado transition-colors">
+                {area.shortTitle}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contatos e redes -->
+      <div class="lg:col-span-3 space-y-4">
+        <h2 class="font-serif text-lg text-dourado tracking-wide">Contato profissional</h2>
+        <ul class="space-y-2.5 text-sm text-marfim/85">
+          <li>
+            <span class="block text-xs uppercase tracking-wider text-dourado/90">Telefone</span>
+            <a
+              href={PROFESSIONAL.phoneHref}
+              data-track-event="contact_phone_click"
+              class="hover:text-dourado transition-colors"
+            >
+              {PROFESSIONAL.phoneDisplay}
+            </a>
+          </li>
+          <li>
+            <span class="block text-xs uppercase tracking-wider text-dourado/90">E-mail</span>
+            <a
+              href={`mailto:${PROFESSIONAL.email}`}
+              data-track-event="contact_email_click"
+              class="hover:text-dourado transition-colors break-all"
+            >
+              {PROFESSIONAL.email}
+            </a>
+          </li>
+        </ul>
+        <div class="pt-2 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          <a
+            href={PROFESSIONAL.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-track-event="contact_whatsapp_click"
+            class="text-dourado hover:text-marfim underline underline-offset-4 transition-colors"
+          >
+            WhatsApp
+          </a>
+          <span class="text-dourado/40" aria-hidden="true">|</span>
+          <a
+            href={PROFESSIONAL.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-dourado hover:text-marfim underline underline-offset-4 transition-colors"
+          >
+            Instagram
+          </a>
+          <span class="text-dourado/40" aria-hidden="true">|</span>
+          <a
+            href={PROFESSIONAL.threadsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-dourado hover:text-marfim underline underline-offset-4 transition-colors"
+          >
+            Threads
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aviso informativo e direitos autorais -->
+    <div class="pt-8 space-y-5">
+      <p class="text-xs sm:text-sm text-marfim/80 leading-relaxed max-w-4xl">
+        {PROFESSIONAL.informativeDisclaimer}
+      </p>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-marfim/75 pt-2 border-t border-dourado/15">
+        <p>
+          © {currentYear} {PROFESSIONAL.brandName} — {PROFESSIONAL.fullName} ({PROFESSIONAL.oab}). Todos os direitos reservados.
+          {PROFESSIONAL.showDeveloperCredit && (
+            <span class="ml-2 text-marfim/65">{PROFESSIONAL.developerCreditText}</span>
+          )}
+        </p>
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="/privacidade" class="hover:text-dourado transition-colors">
+            Política de Privacidade
+          </a>
+          <span class="text-dourado/40" aria-hidden="true">|</span>
+          <a href="/cookies" class="hover:text-dourado transition-colors">
+            Política de Cookies
+          </a>
+          <span class="text-dourado/40" aria-hidden="true">|</span>
+          <button
+            type="button"
+            id="reopen-cookie-settings"
+            class="hover:text-dourado transition-colors underline underline-offset-2 cursor-pointer"
+          >
+            Preferências de cookies
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

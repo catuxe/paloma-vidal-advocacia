@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/ui/Breadcrumbs.astro';
+import FaqAccordion from '../../components/ui/FaqAccordion.astro';
+import AuthorBox from '../../components/blog/AuthorBox.astro';
+import ArticleCard from '../../components/blog/ArticleCard.astro';
+import InstagramEmbed from '../../components/videos/InstagramEmbed.astro';
+import LegalNotice from '../../components/ui/LegalNotice.astro';
+import ContactSection from '../../components/sections/ContactSection.astro';
+import { ALL_PRACTICE_AREAS_DETAIL, type PracticeAreaDetail } from '../../data/practiceAreasContent';
+import { getVideosByArea } from '../../data/videos';
+import { getPublishedPosts } from '../../utils/blog';
+import { PROFESSIONAL } from '../../config/professional';
+
+export function getStaticPaths() {
+  return ALL_PRACTICE_AREAS_DETAIL.map((area) => ({
+    params: { slug: area.slug },
+    props: { area },
+  }));
+}
+
+interface Props {
+  area: PracticeAreaDetail;
+}
+
+const { area } = Astro.props;
+const relatedVideos = getVideosByArea(area.slug);
+const publishedPosts = await getPublishedPosts();
+const relatedPosts = publishedPosts
+  .filter((p) => p.data.relatedAreaSlug === area.slug || p.data.category === area.relatedCategory)
+  .slice(0, 3);
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: area.title,
+  description: area.seoDescription,
+  inLanguage: 'pt-BR',
+  author: {
+    '@id': `${PROFESSIONAL.siteUrl}/#person`,
+  },
+  publisher: {
+    '@id': `${PROFESSIONAL.siteUrl}/#legalservice`,
+  },
+};
+---
+
+<BaseLayout
+  title={area.seoTitle}
+  description={area.seoDescription}
+  sensitiveTopic={area.sensitiveTopic}
+  structuredData={pageSchema}
+>
+  <!-- Hero temático -->
+  <section class="bg-bordo text-marfim py-14 sm:py-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs
+        items={[
+          { label: 'Início', href: '/' },
+          { label: 'Áreas de atuação', href: '/areas-de-atuacao' },
+          { label: area.title },
+        ]}
+        dark={true}
+      />
+      <p class="text-xs uppercase tracking-[0.22em] text-dourado font-medium mb-3">{area.group}</p>
+      <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-marfim leading-tight">{area.title}</h1>
+      <p class="mt-5 text-base sm:text-lg text-marfim/85 leading-relaxed max-w-3xl">{area.intro}</p>
+      <div class="mt-7 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-dourado/90">
+        <span>{PROFESSIONAL.professionalName} • {PROFESSIONAL.oab}</span>
+        <span aria-hidden="true">|</span>
+        <span>{PROFESSIONAL.coverageDetail}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conteúdo estruturado -->
+  <article class="bg-marfim py-16 sm:py-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section class="editorial-prose">
+        <h2>Explicação geral do benefício</h2>
+        {area.overview.map((p) => <p>{p}</p>)}
+
+        <h2>Público potencialmente elegível</h2>
+        <ul>
+          {area.eligiblePublic.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <h2>Requisitos legais principais</h2>
+        <ul>
+          {area.requirements.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <h2>Informações sobre documentação</h2>
+        <p>
+          A documentação varia conforme o histórico de cada segurado ou requerente. Em linhas gerais, costumam ser
+          analisados:
+        </p>
+        <ul>
+          {area.documentation.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <h2>Procedimentos gerais</h2>
+        <ol>
+          {area.procedures.map((item) => <li>{item}</li>)}
+        </ol>
+
+        {area.extraSectionTitle && area.extraSectionParagraphs && (
+          <>
+            <h2>{area.extraSectionTitle}</h2>
+            {area.extraSectionParagraphs.map((p) => <p>{p}</p>)}
+          </>
+        )}
+      </section>
+
+      <!-- Perguntas frequentes da área -->
+      {area.faqs.length > 0 && (
+        <section class="pt-4">
+          <h2 class="font-serif text-3xl text-bordo mb-6">Perguntas frequentes sobre {area.title}</h2>
+          <FaqAccordion items={area.faqs} idPrefix={`faq-${area.slug}`} />
+        </section>
+      )}
+
+      <!-- Vídeos relacionados -->
+      {relatedVideos.length > 0 && (
+        <section class="pt-4 space-y-6">
+          <h2 class="font-serif text-3xl text-bordo">Vídeos relacionados</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {relatedVideos.map((video) => <InstagramEmbed video={video} compact={true} />)}
+          </div>
+        </section>
+      )}
+
+      <!-- Artigos relacionados publicados -->
+      {relatedPosts.length > 0 && (
+        <section class="pt-4 space-y-6">
+          <h2 class="font-serif text-3xl text-bordo">Artigos relacionados</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relatedPosts.map((post) => <ArticleCard post={post} />)}
+          </div>
+        </section>
+      )}
+
+      <!-- Referências oficiais -->
+      <section class="bg-branco border border-bege p-6 sm:p-8 space-y-4">
+        <h2 class="font-serif text-2xl text-bordo">Referências legais e fontes oficiais</h2>
+        <ul class="space-y-2.5 text-sm sm:text-base">
+          {area.references.map((ref) => (
+            <li>
+              <a
+                href={ref.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-bordo underline underline-offset-4 hover:text-bordo-escuro"
+              >
+                {ref.label} ↗
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <LegalNotice />
+      <AuthorBox />
+    </div>
+  </article>
+
+  <ContactSection heading="Precisa de orientação jurídica individualizada?" compact={true} />
+</BaseLayout>

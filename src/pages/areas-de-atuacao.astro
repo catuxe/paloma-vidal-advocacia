@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+import LegalNotice from '../components/ui/LegalNotice.astro';
+import { PRACTICE_AREAS, PRACTICE_GROUPS, PROFESSIONAL } from '../config/professional';
+---
+
+<BaseLayout
+  title={`Áreas de Atuação em Direito Previdenciário | ${PROFESSIONAL.professionalName} | ${PROFESSIONAL.oab}`}
+  description="Conheça as oito áreas de atuação de Paloma Vidal em Direito Previdenciário: BPC/LOAS, salário-maternidade, benefícios por incapacidade, aposentadorias urbana, rural e do professor, e pensão por morte."
+>
+  <section class="bg-bordo text-marfim py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={[{ label: 'Início', href: '/' }, { label: 'Áreas de atuação' }]} dark={true} />
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs uppercase tracking-[0.22em] text-dourado font-medium">Direito Previdenciário — INSS</p>
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-marfim">
+          Áreas de atuação
+        </h1>
+        <p class="text-base sm:text-lg text-marfim/85 leading-relaxed">
+          Orientação jurídica individualizada e atuação em demandas previdenciárias e assistenciais voltadas aos
+          segurados do INSS e seus dependentes, com atendimento on-line em todo o Brasil.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-marfim py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+      {PRACTICE_GROUPS.map((group) => {
+        const items = PRACTICE_AREAS.filter((a) => a.group === group);
+        return (
+          <div class="space-y-6">
+            <div class="flex items-center gap-4">
+              <h2 class="font-serif text-3xl text-bordo shrink-0">{group}</h2>
+              <div class="h-px bg-bege flex-1" aria-hidden="true"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {items.map((area) => (
+                <article class="bg-branco border border-bege p-7 flex flex-col justify-between gap-6 hover:border-bordo/45 transition-colors">
+                  <div class="space-y-3">
+                    <div class="w-8 h-0.5 bg-dourado-suave" aria-hidden="true"></div>
+                    <h3 class="font-serif text-2xl sm:text-3xl text-bordo">{area.title}</h3>
+                    <p class="text-base text-grafite-suave leading-relaxed">{area.summary}</p>
+                  </div>
+                  <div class="pt-4 border-t border-bege/70">
+                    <a
+                      href={area.href}
+                      class="inline-flex items-center gap-2 text-sm font-semibold text-bordo hover:text-bordo-escuro underline underline-offset-4"
+                    >
+                      {area.ctaLabel}
+                      <span aria-hidden="true">→</span>
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+
+      <LegalNotice />
+    </div>
+  </section>
+
+  <ContactSection compact={true} />
+</BaseLayout>

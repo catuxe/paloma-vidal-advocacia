@@ -1,0 +1,418 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/blog/ArticleCard.astro';
+import InstagramEmbed from '../components/videos/InstagramEmbed.astro';
+import FaqAccordion from '../components/ui/FaqAccordion.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+import { PRACTICE_AREAS, PRACTICE_GROUPS, PROFESSIONAL } from '../config/professional';
+import { HOME_FAQS } from '../data/faq';
+import { getPublishedVideos, getVideoById } from '../data/videos';
+import { getPublishedPosts } from '../utils/blog';
+
+const publishedPosts = await getPublishedPosts();
+const featuredPosts = publishedPosts.slice(0, 6);
+const mainPost = featuredPosts[0];
+const secondaryPosts = featuredPosts.slice(1);
+
+const presentationVideo = getVideoById('apresentacao-profissional');
+const galleryVideos = getPublishedVideos().filter((v) => v.id !== 'apresentacao-profissional');
+---
+
+<BaseLayout>
+  <!-- SEÇÃO 02 — HERO PRINCIPAL -->
+  <section class="bg-bordo text-marfim relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-px bg-dourado" aria-hidden="true"></span>
+            <p class="text-xs sm:text-sm uppercase tracking-[0.22em] text-dourado font-medium">
+              PALOMA VIDAL | ADVOCACIA PREVIDENCIÁRIA
+            </p>
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-5xl lg:text-[3.55rem] text-marfim leading-[1.1]">
+            Conhecer seus direitos é o primeiro passo para protegê-los.
+          </h1>
+
+          <p class="text-lg sm:text-xl text-marfim/85 leading-relaxed max-w-2xl">
+            Há mais de oito anos atuando no Direito Previdenciário, com orientação jurídica individualizada, ética e
+            atendimento humanizado.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-dourado/95 pt-1">
+            <span class="font-medium">{PROFESSIONAL.oab}</span>
+            <span class="text-dourado/40" aria-hidden="true">|</span>
+            <span>{PROFESSIONAL.coverageDetail}.</span>
+          </div>
+
+          <div class="pt-4 flex flex-col sm:flex-row gap-4">
+            <a
+              href="/areas-de-atuacao"
+              class="inline-flex items-center justify-center px-7 py-3.5 text-sm sm:text-base font-semibold bg-dourado text-bordo-escuro hover:bg-marfim transition-colors"
+            >
+              Conheça as áreas de atuação
+            </a>
+            <a
+              href="/contato"
+              data-track-event="contact_hero_click"
+              class="inline-flex items-center justify-center px-7 py-3.5 text-sm sm:text-base font-medium text-marfim border border-dourado/70 hover:bg-bordo-escuro hover:border-dourado transition-colors"
+            >
+              Informações de contato
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <div class="border border-dourado/35 p-2.5 bg-bordo-escuro/50">
+              <img
+                src="/images/paloma/paloma-retrato.webp"
+                alt="Paloma Vidal, advogada previdenciarista inscrita na OAB/BA 61.001"
+                width="543"
+                height="724"
+                class="w-full h-auto aspect-[3/4] object-cover object-top"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+            <div class="mt-3 flex items-center justify-between text-xs text-marfim/75 px-1">
+              <span>{PROFESSIONAL.fullName}</span>
+              <span class="text-dourado">{PROFESSIONAL.oab}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 03 — CREDENCIAIS PROFISSIONAIS -->
+  <section aria-label="Credenciais profissionais" class="bg-bordo-escuro text-marfim border-y border-dourado/25">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 text-center sm:text-left">
+        <li class="sm:border-l sm:border-dourado/35 sm:pl-5">
+          <p class="font-serif text-xl sm:text-2xl text-dourado">Mais de oito anos</p>
+          <p class="text-sm text-marfim/80 mt-0.5">De experiência na advocacia</p>
+        </li>
+        <li class="sm:border-l sm:border-dourado/35 sm:pl-5">
+          <p class="font-serif text-xl sm:text-2xl text-dourado">Direito Previdenciário</p>
+          <p class="text-sm text-marfim/80 mt-0.5">Atuação dedicada a benefícios do INSS</p>
+        </li>
+        <li class="sm:border-l sm:border-dourado/35 sm:pl-5">
+          <p class="font-serif text-xl sm:text-2xl text-dourado">{PROFESSIONAL.oab}</p>
+          <p class="text-sm text-marfim/80 mt-0.5">Inscrição regular na OAB Bahia</p>
+        </li>
+        <li class="sm:border-l sm:border-dourado/35 sm:pl-5">
+          <p class="font-serif text-xl sm:text-2xl text-dourado">Todo o Brasil</p>
+          <p class="text-sm text-marfim/80 mt-0.5">Atendimento on-line mediante agendamento</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 04 — ÁREAS DE ATUAÇÃO -->
+  <section aria-labelledby="areas-heading" class="bg-marfim py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-4 mb-14">
+        <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Áreas de atuação</p>
+        <h2 id="areas-heading" class="font-serif text-3xl sm:text-4xl lg:text-5xl text-bordo">
+          Direito Previdenciário em diferentes momentos da vida.
+        </h2>
+        <div class="editorial-rule w-24"></div>
+        <p class="text-base sm:text-lg text-grafite-suave leading-relaxed">
+          Orientação jurídica individualizada sobre benefícios assistenciais, proteção à maternidade e à família,
+          benefícios por incapacidade e modalidades de aposentadoria no INSS.
+        </p>
+      </div>
+
+      <div class="space-y-12">
+        {PRACTICE_GROUPS.map((group) => {
+          const groupAreas = PRACTICE_AREAS.filter((a) => a.group === group);
+          return (
+            <div class="space-y-5">
+              <div class="flex items-center gap-4">
+                <h3 class="font-serif text-2xl sm:text-3xl text-bordo shrink-0">{group}</h3>
+                <div class="h-px bg-bege flex-1" aria-hidden="true"></div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {groupAreas.map((area) => (
+                  <article class="bg-branco border border-bege p-7 flex flex-col justify-between gap-6 hover:border-bordo/40 transition-colors">
+                    <div class="space-y-3">
+                      <div class="w-8 h-0.5 bg-dourado-suave" aria-hidden="true"></div>
+                      <h4 class="font-serif text-2xl text-bordo">{area.title}</h4>
+                      <p class="text-sm sm:text-base text-grafite-suave leading-relaxed">{area.summary}</p>
+                    </div>
+                    <div>
+                      <a
+                        href={area.href}
+                        class="inline-flex items-center gap-2 text-sm font-semibold text-bordo hover:text-bordo-escuro underline underline-offset-4"
+                      >
+                        {area.ctaLabel}
+                        <span aria-hidden="true">→</span>
+                      </a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 05 — SOBRE PALOMA VIDAL -->
+  <section aria-labelledby="sobre-heading" class="bg-branco border-y border-bege py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5">
+          <div class="border border-bege p-2.5 bg-marfim max-w-md mx-auto lg:max-w-none">
+            <img
+              src="/images/paloma/paloma-sobre.webp"
+              alt="Retrato profissional de Dulce Paloma Vidal Santos, advogada previdenciarista"
+              width="543"
+              height="724"
+              class="w-full h-auto aspect-[3/4] object-cover object-top"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-5">
+          <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Sobre a advogada</p>
+          <h2 id="sobre-heading" class="font-serif text-3xl sm:text-4xl lg:text-5xl text-bordo">
+            Conheça Paloma Vidal
+          </h2>
+          <div class="editorial-rule w-24"></div>
+
+          <div class="space-y-4 text-base sm:text-lg text-grafite leading-relaxed">
+            <p>{PROFESSIONAL.bioParagraphs[0]}</p>
+            <p>{PROFESSIONAL.bioParagraphs[1]}</p>
+            <p>{PROFESSIONAL.bioParagraphs[3]}</p>
+            <p>{PROFESSIONAL.bioParagraphs[4]}</p>
+          </div>
+
+          <div class="pt-4">
+            <a
+              href="/sobre"
+              class="inline-flex items-center justify-center px-7 py-3.5 text-sm sm:text-base font-medium bg-bordo text-marfim hover:bg-bordo-escuro transition-colors"
+            >
+              Conheça minha trajetória profissional
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 06 — VÍDEO DE APRESENTAÇÃO -->
+  {presentationVideo && (
+    <section aria-labelledby="video-apresentacao-heading" class="bg-marfim py-20 sm:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div class="lg:col-span-5 space-y-5">
+            <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Apresentação em vídeo</p>
+            <h2 id="video-apresentacao-heading" class="font-serif text-3xl sm:text-4xl lg:text-5xl text-bordo">
+              Direito Previdenciário explicado de forma acessível
+            </h2>
+            <div class="editorial-rule w-24"></div>
+            <p class="text-base sm:text-lg text-grafite-suave leading-relaxed">
+              Neste vídeo de apresentação, Paloma Vidal compartilha sua atuação dedicada ao Direito Previdenciário e à
+              orientação clara sobre direitos junto ao INSS, com atendimento on-line para segurados e dependentes em
+              todo o Brasil.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-4">
+              <a
+                href={presentationVideo.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border border-bordo text-bordo hover:bg-bordo hover:text-marfim transition-colors"
+              >
+                Assistir no Instagram
+              </a>
+              <a
+                href="/videos"
+                class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-grafite-suave hover:text-bordo underline underline-offset-4"
+              >
+                Ver galeria de vídeos
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7">
+            <InstagramEmbed video={presentationVideo} />
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- SEÇÃO 07 — BLOG EM DESTAQUE -->
+  <section aria-labelledby="blog-heading" class="bg-branco border-y border-bege py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div class="max-w-2xl space-y-3">
+          <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Blog jurídico</p>
+          <h2 id="blog-heading" class="font-serif text-3xl sm:text-4xl lg:text-5xl text-bordo">
+            Informação para conhecer seus direitos
+          </h2>
+          <p class="text-base sm:text-lg text-grafite-suave leading-relaxed">
+            Artigos e orientações gerais sobre benefícios do INSS, aposentadorias, direitos previdenciários e
+            atualizações legislativas.
+          </p>
+        </div>
+        <a
+          href="/blog"
+          class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border border-bordo text-bordo hover:bg-bordo hover:text-marfim transition-colors shrink-0"
+        >
+          Acessar todos os artigos
+        </a>
+      </div>
+
+      {featuredPosts.length > 0 ? (
+        <div class="space-y-8">
+          {mainPost && <ArticleCard post={mainPost} featured={true} />}
+          {secondaryPosts.length > 0 && (
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {secondaryPosts.map((post) => (
+                <ArticleCard post={post} />
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div class="bg-marfim border border-bege p-8 sm:p-10 space-y-4">
+          <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">
+            Curadoria e revisão jurídica
+          </p>
+          <h3 class="font-serif text-2xl sm:text-3xl text-bordo">
+            Biblioteca editorial em revisão técnica
+          </h3>
+          <p class="text-base text-grafite-suave max-w-3xl leading-relaxed">
+            Os artigos do blog jurídico são publicados somente após revisão e aprovação expressa da advogada
+            Paloma Vidal ({PROFESSIONAL.oab}). Enquanto os textos inaugurais passam pela conferência jurídica final,
+            você pode consultar as oito páginas temáticas de Direito Previdenciário e os vídeos informativos.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-4">
+            <a
+              href="/areas-de-atuacao"
+              class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium bg-bordo text-marfim hover:bg-bordo-escuro transition-colors"
+            >
+              Explorar áreas de atuação
+            </a>
+            <a
+              href="/videos"
+              class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border border-bordo text-bordo hover:bg-bordo hover:text-marfim transition-colors"
+            >
+              Acessar conteúdos em vídeo
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- SEÇÃO 08 — CONTEÚDOS EM VÍDEO -->
+  <section aria-labelledby="videos-heading" class="bg-marfim py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div class="max-w-2xl space-y-3">
+          <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Instagram educativo</p>
+          <h2 id="videos-heading" class="font-serif text-3xl sm:text-4xl lg:text-5xl text-bordo">
+            Direito Previdenciário também em vídeo
+          </h2>
+          <p class="text-base text-grafite-suave leading-relaxed">
+            Conteúdos selecionados do perfil {PROFESSIONAL.instagramHandle}, carregados sob demanda para preservar a
+            velocidade de navegação e sua privacidade.
+          </p>
+        </div>
+        <a
+          href={PROFESSIONAL.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border border-bordo text-bordo hover:bg-bordo hover:text-marfim transition-colors shrink-0"
+        >
+          Conheça meu Instagram
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {galleryVideos.map((video) => (
+          <InstagramEmbed video={video} compact={true} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 09 — ATENDIMENTO EM TODO O BRASIL -->
+  <section aria-labelledby="atendimento-heading" class="bg-bordo text-marfim py-20 sm:py-24 border-y border-dourado/25">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div class="lg:col-span-7 space-y-5">
+          <p class="text-xs uppercase tracking-[0.22em] text-dourado font-medium">Abrangência nacional</p>
+          <h2 id="atendimento-heading" class="font-serif text-3xl sm:text-4xl lg:text-5xl text-marfim">
+            Atendimento jurídico humanizado, onde você estiver.
+          </h2>
+          <div class="editorial-rule w-24"></div>
+          <p class="text-base sm:text-lg text-marfim/85 leading-relaxed">
+            O atendimento é realizado mediante agendamento, de segunda a sexta-feira, em horário comercial.
+          </p>
+          <p class="text-base sm:text-lg text-marfim/85 leading-relaxed">
+            Por meio de atendimento on-line, videoconferência e WhatsApp profissional, Paloma Vidal presta assistência
+            jurídica a clientes de diferentes regiões do Brasil, considerando as necessidades e particularidades de cada
+            caso.
+          </p>
+        </div>
+
+        <div class="lg:col-span-5">
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              'Atendimento on-line',
+              'Videoconferência',
+              'WhatsApp profissional',
+              'Abrangência nacional',
+              'Mediante agendamento',
+              'Segunda a sexta, horário comercial',
+            ].map((item) => (
+              <li class="bg-bordo-escuro/80 border border-dourado/25 p-5 flex items-start gap-3">
+                <span class="w-2 h-2 mt-2 bg-dourado shrink-0" aria-hidden="true"></span>
+                <span class="text-sm sm:text-base text-marfim/95 font-medium">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 10 — PERGUNTAS FREQUENTES -->
+  <section aria-labelledby="faq-heading" class="bg-branco py-20 sm:py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="space-y-3 mb-12">
+        <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Esclarecimentos gerais</p>
+        <h2 id="faq-heading" class="font-serif text-3xl sm:text-4xl lg:text-5xl text-bordo">
+          Perguntas frequentes
+        </h2>
+        <div class="editorial-rule w-24"></div>
+        <p class="text-base text-grafite-suave">
+          Respostas objetivas e informativas sobre benefícios do INSS e o funcionamento do atendimento. As informações
+          não substituem a análise individualizada.
+        </p>
+      </div>
+
+      <FaqAccordion items={HOME_FAQS} idPrefix="home-faq" />
+
+      <div class="mt-8 text-right">
+        <a
+          href="/perguntas-frequentes"
+          class="inline-flex items-center gap-2 text-sm font-semibold text-bordo hover:text-bordo-escuro underline underline-offset-4"
+        >
+          Ver página completa de perguntas frequentes →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 11 — CONTATO PROFISSIONAL -->
+  <ContactSection />
+</BaseLayout>

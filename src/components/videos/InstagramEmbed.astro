@@ -1,0 +1,95 @@
+---
+import type { VideoItem } from '../../data/videos';
+
+interface Props {
+  video: VideoItem;
+  compact?: boolean;
+}
+
+const { video, compact = false } = Astro.props;
+const embedUrl = `https://www.instagram.com/reel/${video.reelCode}/embed/`;
+---
+
+<article class="bg-branco border border-bege flex flex-col h-full">
+  <div
+    class="relative aspect-[4/5] sm:aspect-[16/10] bg-bordo-escuro overflow-hidden"
+    data-ig-container
+    data-embed-url={embedUrl}
+    data-video-title={video.title}
+  >
+    <img
+      src={video.coverImage}
+      alt={video.coverAlt}
+      class="w-full h-full object-cover object-top opacity-80"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-bordo-profundo/90 via-bordo/45 to-bordo/20 flex flex-col items-center justify-center p-6 text-center">
+      <button
+        type="button"
+        data-ig-load-btn
+        class="inline-flex items-center gap-3 px-5 py-3 bg-bordo/90 text-marfim border border-dourado hover:bg-dourado hover:text-bordo-escuro transition-colors cursor-pointer"
+        aria-label={`Carregar vídeo incorporado do Instagram: ${video.title}`}
+      >
+        <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+        <span class="text-sm font-semibold tracking-wide">Carregar vídeo</span>
+      </button>
+      <p class="mt-3 text-xs text-marfim/85 max-w-xs">
+        Carregamento sob demanda via incorporação oficial do Instagram. Ao carregar, aplicam-se os termos de privacidade da plataforma.
+      </p>
+    </div>
+  </div>
+
+  <div class:list={['flex flex-col flex-1 justify-between', compact ? 'p-5' : 'p-6']}>
+    <div class="space-y-2">
+      <span class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">
+        {video.category}
+      </span>
+      <h3 class="font-serif text-2xl text-bordo leading-snug">{video.title}</h3>
+      <p class="text-sm text-grafite-suave leading-relaxed">{video.description}</p>
+    </div>
+
+    <div class="pt-5 mt-5 border-t border-bege/80 flex items-center justify-between gap-3">
+      <a
+        href={video.instagramUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-bordo hover:text-bordo-escuro underline underline-offset-4"
+      >
+        Assistir no Instagram
+        <span aria-hidden="true">→</span>
+      </a>
+      <span class="text-xs text-grafite-suave">@palomavidal.adv</span>
+    </div>
+  </div>
+</article>
+
+<script is:inline>
+  if (!window.__pvIgInit) {
+    window.__pvIgInit = true;
+    document.addEventListener('click', function (ev) {
+      const btn = ev.target && ev.target.closest ? ev.target.closest('[data-ig-load-btn]') : null;
+      if (!btn) return;
+      const container = btn.closest('[data-ig-container]');
+      if (!container) return;
+      const url = container.getAttribute('data-embed-url');
+      const title = container.getAttribute('data-video-title') || 'Vídeo do Instagram';
+      if (!url) return;
+
+      const iframe = document.createElement('iframe');
+      iframe.src = url;
+      iframe.title = title;
+      iframe.className = 'w-full h-full border-0 bg-branco';
+      iframe.setAttribute('loading', 'lazy');
+      iframe.setAttribute('allowtransparency', 'true');
+      iframe.setAttribute('allow', 'encrypted-media; picture-in-picture');
+      iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+
+      container.innerHTML = '';
+      container.classList.remove('sm:aspect-[16/10]');
+      container.classList.add('min-h-[480px]');
+      container.appendChild(iframe);
+    });
+  }
+</script>

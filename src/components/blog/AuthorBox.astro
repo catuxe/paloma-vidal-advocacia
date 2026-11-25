@@ -1,0 +1,49 @@
+---
+import { PROFESSIONAL } from '../../config/professional';
+
+interface Props {
+  reviewedBy?: string;
+}
+
+const { reviewedBy } = Astro.props;
+---
+
+<section
+  aria-label="Identificação profissional"
+  class="bg-branco border border-bege p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-start sm:items-center"
+>
+  <img
+    src="/images/paloma/paloma-retrato-md.webp"
+    alt={`${PROFESSIONAL.professionalName}, ${PROFESSIONAL.role} (${PROFESSIONAL.oab})`}
+    width="120"
+    height="160"
+    class="w-24 h-28 sm:w-28 sm:h-32 object-cover object-top shrink-0 border border-bege"
+    loading="lazy"
+  />
+  <div class="space-y-2.5">
+    <div>
+      <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">Identificação profissional</p>
+      <h2 class="font-serif text-2xl text-bordo mt-0.5">{PROFESSIONAL.professionalName}</h2>
+      <p class="text-sm font-medium text-grafite">
+        {PROFESSIONAL.role} | {PROFESSIONAL.oab}
+      </p>
+    </div>
+    <p class="text-sm sm:text-base text-grafite-suave leading-relaxed">
+      {PROFESSIONAL.education}, com mais de oito anos de experiência na área, atuação em benefícios previdenciários e
+      assistenciais e atendimento on-line em todo o Brasil.
+    </p>
+    {reviewedBy && (
+      <p class="text-xs font-medium text-bordo bg-bege-claro inline-block px-3 py-1">
+        Revisão jurídica: {reviewedBy}
+      </p>
+    )}
+    <div class="pt-1 flex flex-wrap gap-5 text-sm">
+      <a href="/sobre" class="text-bordo font-semibold underline underline-offset-4 hover:text-bordo-escuro">
+        Conheça a trajetória profissional
+      </a>
+      <a href="/contato" class="text-grafite-suave hover:text-bordo underline underline-offset-4">
+        Informações de contato
+      </a>
+    </div>
+  </div>
+</section>

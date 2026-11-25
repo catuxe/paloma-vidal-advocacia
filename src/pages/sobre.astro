@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import InstagramEmbed from '../components/videos/InstagramEmbed.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+import LegalNotice from '../components/ui/LegalNotice.astro';
+import { PRACTICE_AREAS, PROFESSIONAL } from '../config/professional';
+import { getVideoById } from '../data/videos';
+
+const presentationVideo = getVideoById('apresentacao-profissional');
+
+const principles = [
+  {
+    title: 'Ética profissional',
+    text: 'Atuação pautada pelo compromisso com as normas e os princípios éticos da advocacia.',
+  },
+  {
+    title: 'Atendimento humanizado',
+    text: 'Escuta atenta e respeito às circunstâncias individuais de cada pessoa.',
+  },
+  {
+    title: 'Orientação individualizada',
+    text: 'Análise das particularidades de cada situação previdenciária.',
+  },
+  {
+    title: 'Clareza na comunicação',
+    text: 'Informações jurídicas apresentadas de maneira acessível e compreensível.',
+  },
+];
+---
+
+<BaseLayout
+  title={`Sobre ${PROFESSIONAL.professionalName} | ${PROFESSIONAL.role} | ${PROFESSIONAL.oab}`}
+  description="Conheça a trajetória de Dulce Paloma Vidal Santos (Paloma Vidal), advogada previdenciarista inscrita na OAB/BA 61.001, com mais de oito anos de experiência e atendimento on-line em todo o Brasil."
+>
+  <section class="bg-bordo text-marfim py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={[{ label: 'Início', href: '/' }, { label: 'Sobre Paloma Vidal' }]} dark={true} />
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div class="lg:col-span-7 space-y-5">
+          <p class="text-xs uppercase tracking-[0.22em] text-dourado font-medium">Trajetória profissional</p>
+          <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-marfim">
+            {PROFESSIONAL.professionalName}
+          </h1>
+          <p class="text-lg text-dourado font-medium">
+            {PROFESSIONAL.fullName} • {PROFESSIONAL.oab}
+          </p>
+          <p class="text-base sm:text-lg text-marfim/85 leading-relaxed max-w-2xl">
+            {PROFESSIONAL.role}, {PROFESSIONAL.education.toLowerCase()}, com mais de oito anos de atuação dedicada à
+            orientação e à defesa dos direitos previdenciários e assistenciais em todo o Brasil.
+          </p>
+        </div>
+        <div class="lg:col-span-5">
+          <div class="border border-dourado/35 p-2.5 bg-bordo-escuro/50 max-w-sm mx-auto lg:ml-auto">
+            <img
+              src="/images/paloma/paloma-sobre.webp"
+              alt={`Retrato profissional de ${PROFESSIONAL.fullName}, ${PROFESSIONAL.oab}`}
+              width="543"
+              height="724"
+              class="w-full h-auto aspect-[3/4] object-cover object-top"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Biografia -->
+  <section class="bg-marfim py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-7 space-y-5 text-base sm:text-lg text-grafite leading-relaxed">
+          <h2 class="font-serif text-3xl sm:text-4xl text-bordo">Atuação dedicada ao Direito Previdenciário</h2>
+          <div class="editorial-rule w-24"></div>
+          {PROFESSIONAL.bioParagraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+          <div class="pt-4">
+            <LegalNotice compact={true} />
+          </div>
+        </div>
+
+        <aside class="lg:col-span-5 space-y-6">
+          <div class="bg-branco border border-bege p-7 space-y-5">
+            <h3 class="font-serif text-2xl text-bordo">Credenciais e identificação</h3>
+            <dl class="space-y-3.5 text-sm sm:text-base">
+              <div class="border-b border-bege/70 pb-3">
+                <dt class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">Nome completo</dt>
+                <dd class="text-grafite mt-0.5">{PROFESSIONAL.fullName}</dd>
+              </div>
+              <div class="border-b border-bege/70 pb-3">
+                <dt class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">Registro profissional</dt>
+                <dd class="text-grafite mt-0.5">{PROFESSIONAL.oab} — {PROFESSIONAL.oabSectional}</dd>
+              </div>
+              <div class="border-b border-bege/70 pb-3">
+                <dt class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">Formação complementar</dt>
+                <dd class="text-grafite mt-0.5">{PROFESSIONAL.education} (em andamento)</dd>
+              </div>
+              <div class="border-b border-bege/70 pb-3">
+                <dt class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">Experiência</dt>
+                <dd class="text-grafite mt-0.5">{PROFESSIONAL.experience}</dd>
+              </div>
+              <div>
+                <dt class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">Atendimento</dt>
+                <dd class="text-grafite mt-0.5">
+                  {PROFESSIONAL.coverageDetail}. {PROFESSIONAL.serviceScheduleFull}
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="border border-bege p-2 bg-branco">
+            <img
+              src="/images/paloma/paloma-escritorio-md.webp"
+              alt="Paloma Vidal em ambiente profissional"
+              width="536"
+              height="800"
+              class="w-full h-auto max-h-[420px] object-cover object-top"
+              loading="lazy"
+            />
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Princípios profissionais -->
+  <section class="bg-branco border-y border-bege py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl space-y-3 mb-12">
+        <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Valores da atuação</p>
+        <h2 class="font-serif text-3xl sm:text-4xl text-bordo">Princípios profissionais</h2>
+        <div class="editorial-rule w-24"></div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {principles.map((p, idx) => (
+          <div class="bg-marfim border border-bege p-6 space-y-3">
+            <span class="font-serif text-2xl text-dourado-escuro">0{idx + 1}</span>
+            <h3 class="font-serif text-2xl text-bordo">{p.title}</h3>
+            <p class="text-sm sm:text-base text-grafite-suave leading-relaxed">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Áreas de atuação -->
+  <section class="bg-marfim py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+        <div class="space-y-2">
+          <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Especialidade</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-bordo">Áreas de atuação no Direito Previdenciário</h2>
+        </div>
+        <a href="/areas-de-atuacao" class="text-sm font-semibold text-bordo underline underline-offset-4">
+          Ver todas as áreas →
+        </a>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {PRACTICE_AREAS.map((area) => (
+          <a
+            href={area.href}
+            class="bg-branco border border-bege p-5 hover:border-bordo transition-colors flex flex-col justify-between gap-3"
+          >
+            <span class="font-serif text-xl text-bordo">{area.title}</span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-dourado-escuro">{area.ctaLabel} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Vídeo de apresentação -->
+  {presentationVideo && (
+    <section class="bg-branco border-t border-bege py-16 sm:py-24">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div class="space-y-2">
+          <p class="text-xs uppercase tracking-[0.22em] text-dourado-escuro font-semibold">Apresentação</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-bordo">Vídeo de apresentação profissional</h2>
+        </div>
+        <InstagramEmbed video={presentationVideo} />
+      </div>
+    </section>
+  )}
+
+  <ContactSection compact={true} />
+</BaseLayout>

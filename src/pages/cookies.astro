@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import { PROFESSIONAL } from '../config/professional';
+---
+
+<BaseLayout
+  title={`Política de Cookies | ${PROFESSIONAL.brandName}`}
+  description="Entenda como o site de Paloma Vidal — Advocacia & Consultoria utiliza cookies essenciais, medição de audiência e incorporações de terceiros com controle de consentimento."
+>
+  <section class="bg-bordo text-marfim py-14 sm:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={[{ label: 'Início', href: '/' }, { label: 'Política de Cookies' }]} dark={true} />
+      <p class="text-xs uppercase tracking-[0.22em] text-dourado font-medium mb-3">Transparência e consentimento</p>
+      <h1 class="font-serif text-4xl sm:text-5xl text-marfim">Política de Cookies</h1>
+      <p class="text-sm text-marfim/80 mt-3">
+        Minuta elaborada para revisão e aprovação final pela advogada antes da publicação definitiva.
+      </p>
+    </div>
+  </section>
+
+  <article class="bg-marfim py-14 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 editorial-prose">
+      <h2>1. O que são cookies?</h2>
+      <p>
+        Cookies e mecanismos semelhantes de armazenamento local são pequenos arquivos gravados no navegador para
+        garantir o funcionamento seguro das páginas, lembrar preferências de privacidade e, quando autorizado pelo
+        visitante, permitir a medição estatística do acesso aos conteúdos.
+      </p>
+
+      <h2>2. Categorias utilizadas neste site</h2>
+      <ul>
+        <li>
+          <strong>Cookies essenciais (sempre ativos):</strong> utilizados para segurança da navegação e para gravar a
+          sua escolha no aviso de consentimento (<code>pv_cookie_consent_v1</code>). Não exigem consentimento por serem
+          estritamente necessários.
+        </li>
+        <li>
+          <strong>Cookies de medição e desempenho (opcionais):</strong> quando configurados e expressamente autorizados
+          por você, permitem compreender quais artigos e páginas informativas são mais úteis aos visitantes, sem coleta
+          de dados sensíveis.
+        </li>
+        <li>
+          <strong>Mídia externa e mensuração de campanhas (opcionais):</strong> vídeos do Instagram só são carregados
+          quando você clica em “Carregar vídeo”. Tags de mensuração de campanhas de pesquisa, quando configuradas,
+          dependem do seu consentimento e permanecem desativadas em páginas sobre saúde, deficiência ou crianças.
+        </li>
+      </ul>
+
+      <h2>3. Como alterar ou revogar seu consentimento</h2>
+      <p>
+        Você pode rejeitar cookies não essenciais ou alterar suas preferências a qualquer momento clicando no link
+        <strong> “Preferências de cookies”</strong> localizado no rodapé de todas as páginas, além de poder gerenciar
+        ou excluir cookies diretamente nas configurações do seu navegador.
+      </p>
+
+      <h2>4. Contato</h2>
+      <p>
+        Em caso de dúvidas sobre esta Política de Cookies, entre em contato pelo e-mail
+        <a href={`mailto:${PROFESSIONAL.email}`}>{PROFESSIONAL.email}</a>.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

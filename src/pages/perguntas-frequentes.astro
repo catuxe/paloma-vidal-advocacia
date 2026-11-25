@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import FaqAccordion from '../components/ui/FaqAccordion.astro';
+import LegalNotice from '../components/ui/LegalNotice.astro';
+import ContactSection from '../components/sections/ContactSection.astro';
+import { HOME_FAQS } from '../data/faq';
+import { PROFESSIONAL } from '../config/professional';
+---
+
+<BaseLayout
+  title={`Perguntas Frequentes sobre Direito Previdenciário | ${PROFESSIONAL.professionalName} | ${PROFESSIONAL.oab}`}
+  description="Esclarecimentos gerais sobre BPC/LOAS, salário-maternidade, aposentadorias, benefícios por incapacidade, pensão por morte e atendimento on-line."
+>
+  <section class="bg-bordo text-marfim py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={[{ label: 'Início', href: '/' }, { label: 'Perguntas frequentes' }]} dark={true} />
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs uppercase tracking-[0.22em] text-dourado font-medium">Esclarecimentos gerais</p>
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-marfim">Perguntas frequentes</h1>
+        <p class="text-base sm:text-lg text-marfim/85 leading-relaxed">
+          Respostas didáticas sobre temas recorrentes do Direito Previdenciário e sobre o funcionamento do atendimento
+          on-line em todo o Brasil.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-marfim py-16 sm:py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      <FaqAccordion items={HOME_FAQS} idPrefix="faq-page" />
+      <LegalNotice />
+    </div>
+  </section>
+
+  <ContactSection compact={true} />
+</BaseLayout>

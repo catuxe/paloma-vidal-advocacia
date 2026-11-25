@@ -1,0 +1,107 @@
+---
+import { ANALYTICS_CONFIG } from '../../config/analytics';
+
+interface Props {
+  isSensitive?: boolean;
+}
+
+const { isSensitive = false } = Astro.props;
+const hasAnyTag = Boolean(ANALYTICS_CONFIG.gtmId || ANALYTICS_CONFIG.ga4Id || ANALYTICS_CONFIG.googleAdsId);
+---
+
+{hasAnyTag && (
+  <script
+    is:inline
+    define:vars={{
+      gtmId: ANALYTICS_CONFIG.gtmId,
+      ga4Id: ANALYTICS_CONFIG.ga4Id,
+      adsId: isSensitive ? '' : ANALYTICS_CONFIG.googleAdsId,
+      adsLabel: isSensitive ? '' : ANALYTICS_CONFIG.googleAdsConversionLabel,
+      isSensitive,
+    }}
+  >
+    (function () {
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+
+      // Google Consent Mode v2 — bloqueio prévio por padrão até consentimento explícito
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500,
+      });
+
+      function loadConfiguredTags(prefs) {
+        if (!prefs) return;
+        const allowAnalytics = Boolean(prefs.analytics);
+        const allowAds = Boolean(prefs.marketing) && !isSensitive;
+
+        gtag('consent', 'update', {
+          analytics_storage: allowAnalytics ? 'granted' : 'denied',
+          ad_storage: allowAds ? 'granted' : 'denied',
+          ad_user_data: allowAds ? 'granted' : 'denied',
+          ad_personalization: 'denied', // Remarketing/segmentação comportamental desativados por diretriz ética
+        });
+
+        if (!allowAnalytics && !allowAds) return;
+        if (window.__pvTagsLoaded) return;
+        window.__pvTagsLoaded = true;
+
+        if (gtmId) {
+          const s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(gtmId);
+          document.head.appendChild(s);
+          window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+          return;
+        }
+
+        const primaryId = (allowAnalytics && ga4Id) || (allowAds && adsId);
+        if (primaryId) {
+          const s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(primaryId);
+          document.head.appendChild(s);
+          gtag('js', new Date());
+          if (allowAnalytics && ga4Id) {
+            gtag('config', ga4Id, { anonymize_ip: true, allow_google_signals: false });
+          }
+          if (allowAds && adsId) {
+            gtag('config', adsId, { allow_ad_personalization_signals: false });
+          }
+        }
+      }
+
+      try {
+        const saved = localStorage.getItem('pv_cookie_consent_v1');
+        if (saved) {
+          loadConfiguredTags(JSON.parse(saved));
+        }
+      } catch (_) {}
+
+      window.addEventListener('pv-consent-updated', function (ev) {
+        if (ev && ev.detail) loadConfiguredTags(ev.detail);
+      });
+
+      // Eventos genéricos de clique em canais oficiais (nunca transmite dados sensíveis ou formulários)
+      document.addEventListener('click', function (ev) {
+        const el = ev.target && ev.target.closest ? ev.target.closest('[data-track-event]') : null;
+        if (!el || !window.__pvTagsLoaded) return;
+        const eventName = el.getAttribute('data-track-event');
+        if (!eventName) return;
+        gtag('event', eventName, {
+          event_category: 'contato_institucional',
+          page_path: window.location.pathname,
+        });
+        if (adsId && adsLabel && !isSensitive && eventName === 'contact_whatsapp_click') {
+          gtag('event', 'conversion', { send_to: adsId + '/' + adsLabel });
+        }
+      });
+    })();
+  </script>
+)}

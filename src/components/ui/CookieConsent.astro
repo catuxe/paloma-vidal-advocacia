@@ -1,0 +1,152 @@
+---
+---
+
+<aside
+  id="cookie-consent-banner"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="cookie-banner-title"
+  class="hidden fixed bottom-0 inset-x-0 z-50 bg-bordo-escuro text-marfim border-t border-dourado/40 shadow-2xl"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
+      <div class="space-y-1.5 max-w-3xl">
+        <h2 id="cookie-banner-title" class="font-serif text-xl text-dourado">
+          Privacidade e preferências de cookies
+        </h2>
+        <p class="text-sm text-marfim/85 leading-relaxed">
+          Utilizamos cookies essenciais para o funcionamento do site e, somente mediante o seu consentimento,
+          ferramentas de medição de audiência e incorporações de terceiros. Saiba mais em nossa
+          <a href="/privacidade" class="text-dourado underline underline-offset-2 hover:text-marfim">Política de Privacidade</a>
+          e na
+          <a href="/cookies" class="text-dourado underline underline-offset-2 hover:text-marfim">Política de Cookies</a>.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 shrink-0">
+        <button
+          type="button"
+          id="cookie-reject-btn"
+          class="px-4 py-2.5 text-sm font-medium text-marfim border border-marfim/40 hover:border-dourado hover:text-dourado transition-colors cursor-pointer"
+        >
+          Rejeitar não essenciais
+        </button>
+        <button
+          type="button"
+          id="cookie-customize-btn"
+          class="px-4 py-2.5 text-sm font-medium text-dourado border border-dourado/60 hover:bg-bordo transition-colors cursor-pointer"
+        >
+          Personalizar
+        </button>
+        <button
+          type="button"
+          id="cookie-accept-btn"
+          class="px-5 py-2.5 text-sm font-semibold bg-dourado text-bordo-escuro hover:bg-marfim transition-colors cursor-pointer"
+        >
+          Aceitar selecionados
+        </button>
+      </div>
+    </div>
+
+    <div id="cookie-preferences-panel" class="hidden mt-5 pt-5 border-t border-dourado/20 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+      <div class="p-3.5 bg-bordo/70 border border-dourado/20">
+        <div class="flex items-center justify-between gap-2">
+          <span class="font-semibold text-marfim">Cookies essenciais</span>
+          <span class="text-xs text-dourado uppercase tracking-wider">Sempre ativos</span>
+        </div>
+        <p class="text-xs text-marfim/80 mt-1.5">
+          Necessários para segurança, acessibilidade e registro da sua escolha de consentimento.
+        </p>
+      </div>
+
+      <label class="p-3.5 bg-bordo/70 border border-dourado/20 flex flex-col justify-between cursor-pointer">
+        <div class="flex items-center justify-between gap-2">
+          <span class="font-semibold text-marfim">Medição e desempenho</span>
+          <input type="checkbox" id="cookie-opt-analytics" class="w-4 h-4 accent-dourado" />
+        </div>
+        <p class="text-xs text-marfim/80 mt-1.5">
+          Ajuda a compreender quais conteúdos informativos são mais acessados, sem identificar dados sensíveis.
+        </p>
+      </label>
+
+      <label class="p-3.5 bg-bordo/70 border border-dourado/20 flex flex-col justify-between cursor-pointer">
+        <div class="flex items-center justify-between gap-2">
+          <span class="font-semibold text-marfim">Mídia externa e campanhas</span>
+          <input type="checkbox" id="cookie-opt-marketing" class="w-4 h-4 accent-dourado" />
+        </div>
+        <p class="text-xs text-marfim/80 mt-1.5">
+          Habilita mensuração de campanhas de pesquisa quando configuradas. Desativado em páginas de saúde e deficiência.
+        </p>
+      </label>
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  (function () {
+    const STORAGE_KEY = 'pv_cookie_consent_v1';
+    const banner = document.getElementById('cookie-consent-banner');
+    const panel = document.getElementById('cookie-preferences-panel');
+    const acceptBtn = document.getElementById('cookie-accept-btn');
+    const rejectBtn = document.getElementById('cookie-reject-btn');
+    const customizeBtn = document.getElementById('cookie-customize-btn');
+    const optAnalytics = document.getElementById('cookie-opt-analytics');
+    const optMarketing = document.getElementById('cookie-opt-marketing');
+    const reopenBtn = document.getElementById('reopen-cookie-settings');
+
+    if (!banner) return;
+
+    function saveChoice(prefs) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...prefs, updatedAt: new Date().toISOString() }));
+      } catch (_) {}
+      banner.classList.add('hidden');
+      window.dispatchEvent(new CustomEvent('pv-consent-updated', { detail: prefs }));
+    }
+
+    function openBanner(showPanel) {
+      banner.classList.remove('hidden');
+      if (showPanel && panel) panel.classList.remove('hidden');
+    }
+
+    try {
+      const existing = localStorage.getItem(STORAGE_KEY);
+      if (!existing) {
+        openBanner(false);
+      } else {
+        const parsed = JSON.parse(existing);
+        if (optAnalytics) optAnalytics.checked = Boolean(parsed.analytics);
+        if (optMarketing) optMarketing.checked = Boolean(parsed.marketing);
+      }
+    } catch (_) {
+      openBanner(false);
+    }
+
+    if (customizeBtn && panel) {
+      customizeBtn.addEventListener('click', () => {
+        panel.classList.toggle('hidden');
+      });
+    }
+
+    if (rejectBtn) {
+      rejectBtn.addEventListener('click', () => {
+        if (optAnalytics) optAnalytics.checked = false;
+        if (optMarketing) optMarketing.checked = false;
+        saveChoice({ essential: true, analytics: false, marketing: false });
+      });
+    }
+
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', () => {
+        const isPanelOpen = panel && !panel.classList.contains('hidden');
+        const analytics = isPanelOpen && optAnalytics ? optAnalytics.checked : true;
+        const marketing = isPanelOpen && optMarketing ? optMarketing.checked : true;
+        saveChoice({ essential: true, analytics, marketing });
+      });
+    }
+
+    if (reopenBtn) {
+      reopenBtn.addEventListener('click', () => openBanner(true));
+    }
+  })();
+</script>

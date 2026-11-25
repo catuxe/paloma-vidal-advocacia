@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PROFESSIONAL } from '../config/professional';
+---
+
+<BaseLayout
+  title={`Página não encontrada | ${PROFESSIONAL.brandName}`}
+  description="A página solicitada não foi localizada. Navegue pelas áreas de atuação, blog jurídico ou entre em contato."
+  noindex={true}
+>
+  <section class="bg-marfim py-24 sm:py-32">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 text-center space-y-6">
+      <p class="text-xs uppercase tracking-[0.25em] text-dourado-escuro font-semibold">Erro 404</p>
+      <h1 class="font-serif text-4xl sm:text-5xl text-bordo">Página não encontrada</h1>
+      <div class="editorial-rule w-24 mx-auto"></div>
+      <p class="text-base sm:text-lg text-grafite-suave leading-relaxed">
+        O endereço acessado pode ter sido alterado ou não está disponível no momento. Utilize os caminhos abaixo para
+        continuar sua navegação.
+      </p>
+      <div class="pt-4 flex flex-wrap justify-center gap-4">
+        <a
+          href="/"
+          class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold bg-bordo text-marfim hover:bg-bordo-escuro transition-colors"
+        >
+          Voltar ao início
+        </a>
+        <a
+          href="/areas-de-atuacao"
+          class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border border-bordo text-bordo hover:bg-bordo hover:text-marfim transition-colors"
+        >
+          Áreas de atuação
+        </a>
+        <a
+          href="/blog"
+          class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border border-bege text-grafite hover:border-bordo hover:text-bordo transition-colors"
+        >
+          Blog jurídico
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,91 @@
+---
+import type { BlogPost } from '../../utils/blog';
+import { estimateReadingTime, formatDatePtBr, getPostSlug } from '../../utils/blog';
+
+interface Props {
+  post: BlogPost;
+  featured?: boolean;
+}
+
+const { post, featured = false } = Astro.props;
+const slug = getPostSlug(post);
+const readingTime = estimateReadingTime(post.body);
+const formattedDate = formatDatePtBr(post.data.publishedAt);
+---
+
+{featured ? (
+  <article class="bg-branco border border-bege grid grid-cols-1 lg:grid-cols-12 overflow-hidden group">
+    <a href={`/blog/${slug}`} class="lg:col-span-6 block overflow-hidden bg-bordo">
+      <img
+        src={post.data.coverImage}
+        alt={post.data.coverImageAlt}
+        width="1200"
+        height="675"
+        class="w-full h-full min-h-[240px] object-cover group-hover:scale-[1.02] transition-transform duration-500"
+        loading="lazy"
+      />
+    </a>
+    <div class="lg:col-span-6 p-7 sm:p-10 flex flex-col justify-between gap-6">
+      <div class="space-y-3">
+        <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-widest">
+          <span class="text-dourado-escuro font-semibold">{post.data.category}</span>
+          <span class="text-bege" aria-hidden="true">•</span>
+          <time datetime={post.data.publishedAt.toISOString()} class="text-grafite-suave">
+            {formattedDate}
+          </time>
+          <span class="text-bege" aria-hidden="true">•</span>
+          <span class="text-grafite-suave">{readingTime} min de leitura</span>
+        </div>
+        <h3 class="font-serif text-3xl sm:text-4xl text-bordo leading-tight">
+          <a href={`/blog/${slug}`} class="hover:text-bordo-escuro transition-colors">
+            {post.data.title}
+          </a>
+        </h3>
+        <p class="text-base text-grafite-suave leading-relaxed">{post.data.description}</p>
+      </div>
+      <div>
+        <a
+          href={`/blog/${slug}`}
+          class="inline-flex items-center gap-2 text-sm font-semibold text-bordo hover:text-bordo-escuro underline underline-offset-4"
+        >
+          Ler artigo completo
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </article>
+) : (
+  <article class="bg-branco border border-bege flex flex-col h-full group">
+    <a href={`/blog/${slug}`} class="block overflow-hidden aspect-[16/9] bg-bordo">
+      <img
+        src={post.data.coverImage}
+        alt={post.data.coverImageAlt}
+        width="640"
+        height="360"
+        class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+        loading="lazy"
+      />
+    </a>
+    <div class="p-6 flex flex-col flex-1 justify-between gap-5">
+      <div class="space-y-2.5">
+        <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wider">
+          <span class="text-dourado-escuro font-semibold">{post.data.category}</span>
+          <span class="text-bege" aria-hidden="true">•</span>
+          <span class="text-grafite-suave">{readingTime} min</span>
+        </div>
+        <h3 class="font-serif text-2xl text-bordo leading-snug">
+          <a href={`/blog/${slug}`} class="hover:text-bordo-escuro transition-colors">
+            {post.data.title}
+          </a>
+        </h3>
+        <p class="text-sm text-grafite-suave leading-relaxed line-clamp-3">{post.data.description}</p>
+      </div>
+      <div class="pt-4 border-t border-bege/70 flex items-center justify-between text-xs text-grafite-suave">
+        <time datetime={post.data.publishedAt.toISOString()}>{formattedDate}</time>
+        <a href={`/blog/${slug}`} class="text-sm font-semibold text-bordo hover:text-bordo-escuro">
+          Ler artigo →
+        </a>
+      </div>
+    </div>
+  </article>
+)}

@@ -1,0 +1,16 @@
+# Dependências e build
+node_modules/
+dist/
+.astro/
+.cache/
+
+# Ambiente e segredos
+.env
+.env.*
+!.env.example
+
+# Sistema operacional e editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.log

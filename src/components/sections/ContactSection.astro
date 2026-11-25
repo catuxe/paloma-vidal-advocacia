@@ -1,0 +1,103 @@
+---
+import { PROFESSIONAL } from '../../config/professional';
+
+interface Props {
+  heading?: string;
+  compact?: boolean;
+}
+
+const { heading = 'Informações de contato', compact = false } = Astro.props;
+---
+
+<section
+  aria-labelledby="contato-profissional-heading"
+  class:list={['bg-marfim border-t border-bege', compact ? 'py-14' : 'py-20 sm:py-24']}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <div class="lg:col-span-5 space-y-5">
+        <p class="text-xs uppercase tracking-[0.2em] text-dourado-escuro font-semibold">
+          Atendimento profissional
+        </p>
+        <h2 id="contato-profissional-heading" class="font-serif text-3xl sm:text-4xl lg:text-5xl text-bordo">
+          {heading}
+        </h2>
+        <div class="editorial-rule w-24"></div>
+        <div class="space-y-1.5 text-base text-grafite">
+          <p class="font-semibold text-bordo">{PROFESSIONAL.professionalName} — {PROFESSIONAL.role}</p>
+          <p>{PROFESSIONAL.fullName} • {PROFESSIONAL.oab}</p>
+          <p class="text-grafite-suave">{PROFESSIONAL.coverageDetail}</p>
+          <p class="text-grafite-suave">{PROFESSIONAL.serviceScheduleFull}</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 bg-branco border border-bege p-7 sm:p-10 space-y-7">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="space-y-1">
+            <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">WhatsApp profissional</p>
+            <a
+              href={PROFESSIONAL.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track-event="contact_whatsapp_click"
+              class="text-lg font-medium text-bordo hover:underline underline-offset-4 block"
+            >
+              Iniciar atendimento pelo WhatsApp →
+            </a>
+          </div>
+
+          <div class="space-y-1">
+            <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">Telefone</p>
+            <a
+              href={PROFESSIONAL.phoneHref}
+              data-track-event="contact_phone_click"
+              class="text-lg font-medium text-bordo hover:underline underline-offset-4 block"
+            >
+              {PROFESSIONAL.phoneDisplay}
+            </a>
+          </div>
+
+          <div class="space-y-1 sm:col-span-2">
+            <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">E-mail profissional</p>
+            <a
+              href={`mailto:${PROFESSIONAL.email}`}
+              data-track-event="contact_email_click"
+              class="text-lg font-medium text-bordo hover:underline underline-offset-4 break-all block"
+            >
+              {PROFESSIONAL.email}
+            </a>
+          </div>
+        </div>
+
+        <div class="pt-6 border-t border-bege flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-4 text-sm">
+            <span class="text-grafite-suave">Redes oficiais:</span>
+            <a
+              href={PROFESSIONAL.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-bordo font-semibold hover:underline underline-offset-4"
+            >
+              Instagram ({PROFESSIONAL.instagramHandle})
+            </a>
+            <span class="text-bege" aria-hidden="true">|</span>
+            <a
+              href={PROFESSIONAL.threadsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-bordo font-semibold hover:underline underline-offset-4"
+            >
+              Threads
+            </a>
+          </div>
+          <a
+            href="/contato"
+            class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium bg-bordo text-marfim hover:bg-bordo-escuro transition-colors shrink-0"
+          >
+            Página de contato
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

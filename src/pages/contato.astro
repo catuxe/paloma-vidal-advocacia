@@ -1,0 +1,279 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
+import LegalNotice from '../components/ui/LegalNotice.astro';
+import { PROFESSIONAL } from '../config/professional';
+---
+
+<BaseLayout
+  title={`Contato Profissional | ${PROFESSIONAL.professionalName} | ${PROFESSIONAL.oab}`}
+  description="Entre em contato com Paloma Vidal, advogada previdenciarista (OAB/BA 61.001). Atendimento on-line em todo o Brasil, de segunda a sexta-feira, em horário comercial, mediante agendamento."
+>
+  <section class="bg-bordo text-marfim py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={[{ label: 'Início', href: '/' }, { label: 'Contato' }]} dark={true} />
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs uppercase tracking-[0.22em] text-dourado font-medium">Canais oficiais</p>
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-marfim">Informações de contato</h1>
+        <p class="text-base sm:text-lg text-marfim/85 leading-relaxed">
+          {PROFESSIONAL.serviceScheduleFull} {PROFESSIONAL.coverageDetail}, por videoconferência e WhatsApp profissional.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-marfim py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Canais diretos -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-branco border border-bege p-7 space-y-6">
+            <div class="flex items-center gap-4 pb-5 border-b border-bege">
+              <img
+                src="/images/paloma/paloma-retrato-md.webp"
+                alt={`${PROFESSIONAL.professionalName}, ${PROFESSIONAL.oab}`}
+                width="80"
+                height="96"
+                class="w-16 h-20 object-cover object-top border border-bege shrink-0"
+              />
+              <div>
+                <h2 class="font-serif text-2xl text-bordo">{PROFESSIONAL.professionalName}</h2>
+                <p class="text-sm text-grafite">{PROFESSIONAL.fullName}</p>
+                <p class="text-xs font-semibold text-dourado-escuro uppercase tracking-wider mt-0.5">
+                  {PROFESSIONAL.role} • {PROFESSIONAL.oab}
+                </p>
+              </div>
+            </div>
+
+            <div class="space-y-4 text-sm sm:text-base">
+              <div>
+                <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">WhatsApp profissional</p>
+                <a
+                  href={PROFESSIONAL.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track-event="contact_whatsapp_click"
+                  class="text-bordo font-semibold hover:underline underline-offset-4 mt-0.5 inline-block"
+                >
+                  Abrir WhatsApp oficial →
+                </a>
+              </div>
+
+              <div>
+                <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">Telefone</p>
+                <a
+                  href={PROFESSIONAL.phoneHref}
+                  data-track-event="contact_phone_click"
+                  class="text-bordo font-semibold hover:underline underline-offset-4 mt-0.5 inline-block"
+                >
+                  {PROFESSIONAL.phoneDisplay}
+                </a>
+              </div>
+
+              <div>
+                <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">E-mail</p>
+                <a
+                  href={`mailto:${PROFESSIONAL.email}`}
+                  data-track-event="contact_email_click"
+                  class="text-bordo font-semibold hover:underline underline-offset-4 mt-0.5 inline-block break-all"
+                >
+                  {PROFESSIONAL.email}
+                </a>
+              </div>
+
+              <div class="pt-3 border-t border-bege/70 space-y-1">
+                <p class="text-xs uppercase tracking-widest text-dourado-escuro font-semibold">Atendimento</p>
+                <p class="text-grafite">{PROFESSIONAL.coverageDetail}.</p>
+                <p class="text-grafite-suave">{PROFESSIONAL.serviceScheduleFull}</p>
+              </div>
+
+              <div class="pt-3 border-t border-bege/70 flex flex-wrap gap-4 text-sm">
+                <a
+                  href={PROFESSIONAL.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-bordo font-semibold hover:underline underline-offset-4"
+                >
+                  Instagram ({PROFESSIONAL.instagramHandle})
+                </a>
+                <span class="text-bege" aria-hidden="true">|</span>
+                <a
+                  href={PROFESSIONAL.threadsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-bordo font-semibold hover:underline underline-offset-4"
+                >
+                  Threads
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <LegalNotice compact={true} />
+        </div>
+
+        <!-- Formulário minimalista com aviso LGPD -->
+        <div class="lg:col-span-7">
+          <div class="bg-branco border border-bege p-7 sm:p-10 space-y-6">
+            <div class="space-y-2">
+              <h2 class="font-serif text-3xl text-bordo">Enviar mensagem breve</h2>
+              <p class="text-sm sm:text-base text-grafite-suave leading-relaxed">
+                Caso prefira, utilize o formulário abaixo para solicitar informações sobre agendamento. O retorno é
+                realizado em horário comercial, de segunda a sexta-feira.
+              </p>
+            </div>
+
+            <div class="bg-bege-claro border-l-2 border-bordo p-4 text-sm text-grafite leading-relaxed">
+              <strong class="text-bordo">Importante (LGPD e sigilo):</strong> não envie documentos pessoais, laudos
+              médicos, número de CPF, senhas, dados de benefícios ou informações processuais por este formulário
+              público. Caso necessário, a documentação será solicitada diretamente no atendimento individualizado.
+            </div>
+
+            <form
+              name="contato-paloma-vidal"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              id="contact-form"
+              class="space-y-5"
+            >
+              <input type="hidden" name="form-name" value="contato-paloma-vidal" />
+              <p class="hidden" aria-hidden="true">
+                <label>Não preencha este campo: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+              </p>
+
+              <div>
+                <label for="nome" class="block text-sm font-semibold text-bordo mb-1.5">
+                  Nome <span aria-hidden="true">*</span>
+                </label>
+                <input
+                  id="nome"
+                  name="nome"
+                  type="text"
+                  required
+                  minlength="2"
+                  maxlength="120"
+                  autocomplete="name"
+                  class="w-full px-4 py-3 bg-marfim border border-bege text-grafite focus:border-bordo"
+                  placeholder="Seu nome completo"
+                />
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label for="email" class="block text-sm font-semibold text-bordo mb-1.5">
+                    E-mail <span aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    maxlength="160"
+                    autocomplete="email"
+                    class="w-full px-4 py-3 bg-marfim border border-bege text-grafite focus:border-bordo"
+                    placeholder="seuemail@exemplo.com"
+                  />
+                </div>
+
+                <div>
+                  <label for="telefone" class="block text-sm font-semibold text-bordo mb-1.5">
+                    Telefone / WhatsApp <span class="text-grafite-suave font-normal">(opcional)</span>
+                  </label>
+                  <input
+                    id="telefone"
+                    name="telefone"
+                    type="tel"
+                    maxlength="30"
+                    autocomplete="tel"
+                    class="w-full px-4 py-3 bg-marfim border border-bege text-grafite focus:border-bordo"
+                    placeholder="(DDD) 99999-9999"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="mensagem" class="block text-sm font-semibold text-bordo mb-1.5">
+                  Mensagem breve <span aria-hidden="true">*</span>
+                </label>
+                <textarea
+                  id="mensagem"
+                  name="mensagem"
+                  rows="4"
+                  required
+                  minlength="10"
+                  maxlength="800"
+                  class="w-full px-4 py-3 bg-marfim border border-bege text-grafite focus:border-bordo"
+                  placeholder="Informe de forma breve o assunto sobre o qual deseja agendar atendimento (sem incluir CPF, laudos ou dados processuais)."
+                ></textarea>
+              </div>
+
+              <label class="flex items-start gap-3 text-sm text-grafite-suave cursor-pointer">
+                <input type="checkbox" name="ciente_privacidade" required class="mt-1 w-4 h-4 accent-bordo shrink-0" />
+                <span>
+                  Li e compreendi a
+                  <a href="/privacidade" class="text-bordo underline underline-offset-2">Política de Privacidade</a>
+                  e estou ciente de que este canal não substitui consulta jurídica e não deve receber documentos
+                  sensíveis.
+                </span>
+              </label>
+
+              <div class="pt-2 flex flex-col sm:flex-row sm:items-center gap-4">
+                <button
+                  type="submit"
+                  class="inline-flex items-center justify-center px-7 py-3.5 text-sm sm:text-base font-semibold bg-bordo text-marfim hover:bg-bordo-escuro transition-colors cursor-pointer"
+                >
+                  Enviar mensagem
+                </button>
+                <p id="form-feedback" class="text-sm text-bordo hidden" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('contact-form');
+    const feedback = document.getElementById('form-feedback');
+    if (!form || !feedback) return;
+
+    form.addEventListener('submit', async function (e) {
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        e.preventDefault();
+        feedback.textContent =
+          'Validação concluída em ambiente local. Em produção no Netlify, a mensagem é enviada com segurança.';
+        feedback.classList.remove('hidden');
+        return;
+      }
+
+      e.preventDefault();
+      const formData = new FormData(form);
+      try {
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString(),
+        });
+        if (res.ok) {
+          form.reset();
+          feedback.textContent =
+            'Mensagem enviada com sucesso. O retorno será realizado em horário comercial, de segunda a sexta-feira.';
+          feedback.classList.remove('hidden');
+          if (typeof window.gtag === 'function' && window.__pvTagsLoaded) {
+            window.gtag('event', 'contact_form_submit', { event_category: 'contato_institucional' });
+          }
+        } else {
+          throw new Error('Falha no envio');
+        }
+      } catch (_) {
+        feedback.textContent =
+          'Não foi possível concluir o envio agora. Utilize o WhatsApp profissional, telefone ou e-mail informados ao lado.';
+        feedback.classList.remove('hidden');
+      }
+    });
+  })();
+</script>
