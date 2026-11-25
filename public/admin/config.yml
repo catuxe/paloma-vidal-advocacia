@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: ldvsantos02-sketch/paloma-vidal-advocacia
+  repo: catuxe/paloma-vidal-advocacia
   branch: main
   # Autenticação segura via OAuth (Netlify / Cloudflare Worker OAuth gratuito para GitHub)
   # Consulte docs/HOSPEDAGEM-DOMINIO.md para finalizar a vinculação do provedor OAuth.

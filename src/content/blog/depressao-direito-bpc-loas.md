@@ -1,26 +1,27 @@
 ---
 title: "Quem tem depressão pode ter direito ao BPC/LOAS?"
-subtitle: "Entenda como a avaliação biopsicossocial analisa impedimentos de longo prazo de natureza mental e quais critérios socioeconômicos são exigidos pela LOAS."
+subtitle: "Entenda os critérios legais para transtornos mentais de longo prazo no BPC/LOAS e a diferença para os benefícios por incapacidade do INSS."
 slug: "depressao-direito-bpc-loas"
-description: "Saiba em quais circunstâncias uma pessoa com depressão pode preencher os requisitos do BPC/LOAS, a diferença entre diagnóstico e elegibilidade e a distinção em relação ao auxílio-doença."
+description: "Saiba em quais situações a depressão grave pode ser analisada no BPC/LOAS, quais critérios socioeconômicos são aplicados e por que o diagnóstico isolado não garante o benefício."
 category: "BPC/LOAS"
 tags:
   - "BPC/LOAS"
   - "depressão"
   - "saúde mental"
   - "avaliação biopsicossocial"
-  - "INSS"
+  - "Bolsa Família"
 coverImage: "/images/blog/depressao-direito-bpc-loas.svg"
 coverImageAlt: "Capa editorial do artigo sobre depressão e critérios do BPC/LOAS"
 publishedAt: 2026-11-24
-author: "Minuta editorial — pendente de revisão jurídica"
+updatedAt: 2026-11-25
+author: "Paloma Vidal — OAB/BA 61.001"
 references:
   - label: "Lei nº 8.742/1993 — Lei Orgânica da Assistência Social (Planalto)"
     url: "https://www.planalto.gov.br/ccivil_03/leis/l8742.htm"
   - label: "Lei nº 13.146/2015 — Estatuto da Pessoa com Deficiência (Planalto)"
     url: "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm"
-  - label: "Decreto nº 6.214/2007 — Regulamento do BPC (Planalto)"
-    url: "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/decreto/d6214.htm"
+  - label: "Lei nº 15.077/2024 e Decreto nº 12.534/2025 — Critérios de renda do BPC (Planalto)"
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15077.htm"
 relatedVideos:
   - "depressao-bpc-loas"
 relatedArticles:
@@ -31,51 +32,24 @@ featured: false
 editorialStatus: "rascunho"
 draft: true
 sensitiveTopic: true
-seoTitle: "Quem tem depressão pode ter direito ao BPC/LOAS? Entenda | Paloma Vidal"
-seoDescription: "Compreenda quando a depressão grave pode ser enquadrada na avaliação biopsicossocial do BPC/LOAS, os requisitos socioeconômicos e a diferença para o auxílio por incapacidade."
+seoTitle: "Quem tem depressão pode ter direito ao BPC/LOAS? | Paloma Vidal"
+seoDescription: "Entenda quando quadros graves de depressão podem atender aos requisitos do BPC/LOAS, a avaliação biopsicossocial e a diferença para o auxílio por incapacidade."
 ---
 
-Transtornos depressivos graves podem comprometer profundamente a autonomia, as relações sociais e a capacidade de trabalho de uma pessoa. Diante das dificuldades financeiras provocadas pelo afastamento das atividades cotidianas, é comum surgir a dúvida: **quem tem depressão pode ter direito ao BPC/LOAS?**
+Quadros graves e persistentes de depressão podem comprometer seriamente a autonomia e a capacidade de trabalho. Diante disso, muitas pessoas perguntam se **quem tem depressão pode ter direito ao BPC/LOAS**.
 
-A resposta exige cuidado e precisão jurídica: **o diagnóstico de depressão, por si só, não garante automaticamente a concessão do BPC/LOAS**. Entretanto, em quadros graves e persistentes que gerem impedimento de longo prazo e preencham os critérios socioeconômicos da lei, é possível pleitear o benefício.
+## Entenda o seu direito
 
-## O conceito de deficiência para fins assistenciais (LOAS)
+A Lei Orgânica da Assistência Social (Lei nº 8.742/1993) não restringe o BPC a deficiências físicas. Ela contempla impedimentos de longo prazo (mínimo de dois anos) de natureza física, **mental**, intelectual ou sensorial que, em interação com barreiras sociais, obstruam a participação plena na sociedade.
 
-A Lei Orgânica da Assistência Social (**Lei nº 8.742/1993**, art. 20, § 2º), em harmonia com o Estatuto da Pessoa com Deficiência (**Lei nº 13.146/2015**), considera pessoa com deficiência aquela que tem **impedimento de longo prazo** de natureza física, **mental**, intelectual ou sensorial — assim entendido aquele que produz efeitos pelo **prazo mínimo de dois anos** — o qual, em interação com uma ou mais barreiras, pode obstruir sua participação plena e efetiva na sociedade em igualdade de condições com as demais pessoas.
+Entretanto, **o diagnóstico de depressão, isoladamente, não garante a concessão do benefício**. É indispensável preencher em conjunto os critérios de impedimento de longo prazo e de vulnerabilidade socioeconômica.
 
-Portanto, a legislação não restringe o BPC a deficiências físicas visíveis: transtornos psiquiátricos severos, como a depressão grave ou recorrente refratária ao tratamento, podem ser enquadrados quando demonstrado o impedimento de longo prazo.
+## Pontos importantes
 
-## Avaliação biopsicossocial e barreiras à participação social
+- **Avaliação biopsicossocial:** o INSS examina o quadro clínico na perícia médica e o impacto social e funcional na avaliação social.
+- **Critério socioeconômico atualizado:** exige-se inscrição atualizada no CadÚnico e enquadramento na renda familiar per capita prevista em lei. Com a Lei nº 15.077/2024 e o Decreto nº 12.534/2025, os valores do Bolsa Família passaram a integrar, como regra geral, o cálculo da renda familiar, ressalvadas particularidades ligadas à data de concessão e à realidade de cada família.
+- **BPC x benefícios por incapacidade:** quem contribui para o INSS (ou está em período de graça) costuma avaliar primeiro o auxílio por incapacidade temporária ou a aposentadoria por incapacidade permanente, que não dependem de baixa renda familiar.
 
-No requerimento do BPC/LOAS, o INSS não analisa apenas o código da doença (CID). O requerente passa pela **avaliação biopsicossocial**, composta por:
+## Cada situação possui particularidades
 
-- **Perícia médica:** examina o histórico clínico, a gravidade dos sintomas, a resposta aos tratamentos e a projeção de duração dos impedimentos;
-- **Avaliação social:** conduzida por assistente social, analisa os fatores ambientais, as barreiras sociais e familiares, a escolaridade, as condições de moradia e o impacto concreto da condição de saúde na autonomia da pessoa.
-
-## Requisitos socioeconômicos e CadÚnico
-
-Além da comprovação do impedimento de longo prazo, o requerente precisa atender aos critérios socioeconômicos da LOAS:
-
-- Inscrição ativa e atualizada no **Cadastro Único (CadÚnico)** nos últimos 24 meses;
-- Comprovação de baixa renda familiar per capita nos termos legais, observadas as deduções cabíveis de gastos contínuos com saúde (como medicamentos não fornecidos pelo SUS) e a análise da vulnerabilidade social.
-
-## Diferença entre BPC/LOAS e benefícios por incapacidade do INSS
-
-É muito importante não confundir o BPC/LOAS com os benefícios previdenciários por incapacidade:
-
-- **Se a pessoa contribui para o INSS (ou está em período de graça):** o caminho adequado costuma ser avaliar o **auxílio por incapacidade temporária** (antigo auxílio-doença) ou a **aposentadoria por incapacidade permanente**, que não exigem critério de baixa renda familiar e pagam 13º salário.
-- **Se a pessoa não possui qualidade de segurada no INSS:** e enfrenta impedimento de longo prazo aliado à vulnerabilidade socioeconômica, analisa-se o cabimento do **BPC/LOAS**.
-
-## Documentação que fortalece a análise
-
-- Laudos psiquiátricos atualizados, detalhando diagnóstico, tempo de evolução do quadro, tratamentos já tentados, prognóstico e limitações funcionais;
-- Receitas médicas, relatórios de acompanhamento psicológico ou no CAPS e eventuais registros de internações;
-- Folha resumo atualizada do CadÚnico, documentos pessoais de todo o grupo familiar e comprovantes de despesas contínuas com medicamentos.
-
-## Perguntas frequentes
-
-**Quem tem depressão leve ou episódio recente tem direito ao BPC?**  
-Em regra, quadros leves ou de curta duração sem projeção de impedimento mínimo de dois anos não atendem ao conceito legal de deficiência previsto na LOAS.
-
-**O BPC/LOAS para depressão exige contribuição ao INSS?**  
-Não. O BPC tem natureza assistencial e independe de contribuições previdenciárias prévias.
+A gravidade clínica, o histórico de acompanhamento psiquiátrico e a existência ou não de contribuições previdenciárias definem qual caminho jurídico é mais adequado. Uma avaliação individualizada permite analisar com segurança o enquadramento do seu caso.

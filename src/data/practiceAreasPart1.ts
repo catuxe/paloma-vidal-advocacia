@@ -42,7 +42,7 @@ export const PRACTICE_AREAS_PART_1: PracticeAreaDetail[] = [
     ],
     requirements: [
       'Inscrição ativa e atualizada no Cadastro Único para Programas Sociais do Governo Federal (CadÚnico) nos últimos 24 meses.',
-      'Critério socioeconômico: renda familiar mensal per capita dentro dos parâmetros da Lei nº 8.742/1993, observadas as deduções legais (como determinados gastos médicos contínuos não fornecidos pelo SUS) e o entendimento jurisprudencial em casos concretos.',
+      'Critério socioeconômico: renda familiar mensal per capita dentro dos parâmetros da Lei nº 8.742/1993. Com as recentes alterações na legislação (Lei nº 15.077/2024 e Decreto nº 12.534/2025, que alterou o Decreto nº 6.214/2007), os valores recebidos pelo Bolsa Família passaram a integrar, como regra geral, o cálculo da renda familiar para concessão do BPC/LOAS — existindo, contudo, particularidades relacionadas à data de concessão, a despesas contínuas com saúde e às circunstâncias de cada família.',
       'Para pessoas com deficiência: comprovação de impedimento de longo prazo (mínimo de 2 anos) que, em interação com barreiras, possa obstruir a participação plena e efetiva na sociedade em igualdade de condições, verificada em avaliação médica e avaliação social (biopsicossocial).',
       'Não acumular o BPC com outro benefício no âmbito da seguridade social ou de outro regime, salvo assistência médica e pensões especiais de natureza indenizatória.',
     ],
@@ -68,19 +68,26 @@ export const PRACTICE_AREAS_PART_1: PracticeAreaDetail[] = [
         category: 'BPC/LOAS',
         question: 'Toda criança com autismo tem direito automático ao BPC/LOAS?',
         answer:
-          'Não. A Lei nº 12.764/2012 reconhece a pessoa com TEA como pessoa com deficiência para todos os efeitos legais, mas a concessão do BPC depende da comprovação conjunta dos impedimentos na avaliação biopsicossocial, da inscrição atualizada no CadÚnico e dos requisitos socioeconômicos.',
+          'Não. A Lei nº 12.764/2012 reconhece a pessoa com TEA como pessoa com deficiência para todos os efeitos legais, mas a concessão do BPC depende da comprovação conjunta dos impedimentos na avaliação biopsicossocial, da inscrição atualizada no CadÚnico e dos requisitos socioeconômicos vigentes.',
       },
       {
         category: 'BPC/LOAS',
-        question: 'O que fazer se o BPC/LOAS for negado pelo INSS?',
+        question: 'O Bolsa Família entra no cálculo da renda para o BPC/LOAS?',
         answer:
-          'O primeiro passo é acessar o Meu INSS para ler o motivo do indeferimento (divergência no CadÚnico, cálculo da renda ou avaliação pericial). A partir da análise documental, avalia-se se cabe recurso administrativo, novo requerimento ou ação judicial.',
+          'Com as recentes alterações na legislação (Lei nº 15.077/2024 e Decreto nº 12.534/2025), os valores recebidos pelo Bolsa Família passaram a integrar, como regra geral, o cálculo da renda familiar para concessão do BPC/LOAS. Entretanto, existem particularidades que devem ser consideradas, especialmente em relação à data de concessão do benefício e às circunstâncias de cada família.',
+      },
+      {
+        category: 'BPC/LOAS',
+        question: 'O que significa ter o BPC/LOAS negado pelo INSS?',
+        answer:
+          'O indeferimento administrativo pode decorrer de divergências cadastrais, cálculo da renda ou avaliação dos requisitos legais, mas não significa necessariamente inexistência do direito. A análise individualizada do motivo da negativa ajuda a identificar quais possibilidades cabem em cada caso.',
       },
     ],
     references: [
       { label: 'Lei nº 8.742/1993 — Lei Orgânica da Assistência Social (Planalto)', url: 'https://www.planalto.gov.br/ccivil_03/leis/l8742.htm' },
       { label: 'Lei nº 12.764/2012 — Política Nacional de Proteção dos Direitos da Pessoa com TEA (Planalto)', url: 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12764.htm' },
-      { label: 'Decreto nº 6.214/2007 — Regulamento do BPC (Planalto)', url: 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/decreto/d6214.htm' },
+      { label: 'Lei nº 15.077/2024 — Alterações no cálculo da renda do BPC (Planalto)', url: 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15077.htm' },
+      { label: 'Decreto nº 6.214/2007 (atualizado pelo Decreto nº 12.534/2025) — Regulamento do BPC (Planalto)', url: 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/decreto/d6214.htm' },
     ],
     relatedCategory: 'BPC/LOAS',
   },
