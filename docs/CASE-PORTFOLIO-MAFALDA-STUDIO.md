@@ -16,7 +16,7 @@
 
 ## 1. Apresentação e contexto da cliente
 
-**Dulce Paloma Vidal dos Santos Lima (Paloma Vidal — OAB/BA 61.001)** é advogada previdenciarista com mais de oito anos de atuação em Direito Previdenciário e atendimento on-line em todo o Brasil. O projeto foi concebido para consolidar sua presença digital com sobriedade, acolhimento e conformidade rigorosa às normas éticas da advocacia brasileira (Provimento OAB nº 205/2021) e à LGPD.
+**Dulce Paloma Vidal Santos Lima (Paloma Vidal — OAB/BA 61.001)** é advogada previdenciarista com mais de oito anos de atuação em Direito Previdenciário e atendimento on-line em todo o Brasil. O projeto foi concebido para consolidar sua presença digital com sobriedade, acolhimento e conformidade rigorosa às normas éticas da advocacia brasileira (Provimento OAB nº 205/2021) e à LGPD.
 
 ## 2. Necessidades identificadas e objetivos
 
